@@ -1,0 +1,58 @@
+{
+  "bumpFiles": [
+    {
+      "filename": "package.json",
+      "type": "json"
+    },
+    {
+      "filename": "package-lock.json",
+      "type": "json"
+    },
+    {
+      "filename": "lambda/firewall-auto-config/package.json",
+      "type": "json"
+    },
+    {
+      "filename": "lambda/firewall-auto-config/package-lock.json",
+      "type": "json"
+    },
+    {
+      "filename": "lambda/firewall-config-api/package.json",
+      "type": "json"
+    },
+    {
+      "filename": "lambda/firewall-config-api/package-lock.json",
+      "type": "json"
+    },
+    {
+      "filename": "lambda/firewall-config-scheduler/package.json",
+      "type": "json"
+    },
+    {
+      "filename": "lambda/firewall-config-scheduler/package-lock.json",
+      "type": "json"
+    },
+    {
+      "filename": "lambda/shared-types/package.json",
+      "type": "json"
+    },
+    {
+      "filename": "lambda/shared-types/package-lock.json",
+      "type": "json"
+    }
+  ],
+    "types": [
+      { "type": "feat", "section": "Features" },
+      { "type": "fix", "section": "Bug Fixes" },
+      { "type": "test", "section": "Tests", "hidden": true },
+      { "type": "build", "section": "Build System", "hidden": true },
+      { "type": "ci", "hidden": true },
+      { "type": "chore", "hidden": true },
+      { "type": "doc", "hidden": true }
+    ],
+     "commitUrlFormat": "{{hash}}",
+     "compareUrlFormat": "Changes between tag {{previousTag}} and tag {{currentTag}}",
+     "infile": "../CHANGELOG.md",
+     "header": "# Dynamic Object and Rule Extensions for AWS Network Firewall Solution Release Changelog",
+     "releaseCommitMessageFormat": "Release Dynamic Object and Rule Extensions for AWS Network Firewall Solution {{currentTag}}"
+}

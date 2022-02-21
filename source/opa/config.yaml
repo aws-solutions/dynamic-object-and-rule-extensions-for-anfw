@@ -1,0 +1,21 @@
+services:
+  opa_default_service:
+    url: https://s3-ap-southeast-2.amazonaws.com/${BUNDLE_BUCKET}/
+    response_header_timeout_seconds: 5
+    credentials:
+      s3_signing:
+        metadata_credentials:
+          aws_region: ap-southeast-2
+
+decision_logs:
+  service: opa_default_service
+  console: true
+
+bundles:
+  policy:
+    service: opa_default_service
+    resource: bundles/default.tar.gz
+    persist: true
+    polling:
+      min_delay_seconds: 60
+      max_delay_seconds: 120

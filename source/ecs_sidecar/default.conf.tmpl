@@ -1,0 +1,26 @@
+server {
+  listen ${PORT} ssl;
+
+  server_name _;
+  ssl_certificate /etc/nginx/cert.crt;
+  ssl_certificate_key /etc/nginx/cert.key;
+ 
+  ssl_protocols TLSv1.2 TLSv1.3;
+  ssl_prefer_server_ciphers on;
+
+  # sonar receives large uploads of client code. 0 removes all limits.
+  client_max_body_size 0;
+
+  location / {
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto https;
+
+    # To avoid SAML redirect problem
+    # https://community.sonarsource.com/t/redirect-to-sonarqube-on-http-after-gitlab-authentication/34774
+    proxy_redirect http://$host https://$host;
+
+    proxy_pass http://localhost:${UPSTREAM_PORT};
+  }
+}

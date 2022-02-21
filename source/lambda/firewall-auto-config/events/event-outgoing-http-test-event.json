@@ -1,0 +1,7 @@
+{
+    "httpMethod": "GET",
+    "resource": "contact-us",
+    "pathParameters": {
+        "id": "id1"
+    }
+}

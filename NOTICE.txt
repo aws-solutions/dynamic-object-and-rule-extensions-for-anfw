@@ -1,0 +1,57 @@
+Dynamic Object and Rule Extensions for AWS Network Firewall
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Licensed under the Apache License Version 2.0 (the "License"). You may not use this file except
+in compliance with the License. A copy of the License is located at http://www.apache.org/licenses/
+or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the
+specific language governing permissions and limitations under the License.
+
+**********************
+THIRD PARTY COMPONENTS
+**********************
+This software includes third party software subject to the following copyrights:
+
+@aws-cdk/aws-apigateway              under the Apache License 2.0
+@aws-cdk/aws-cloudtrail              under the Apache License 2.0
+@aws-cdk/aws-cloudwatch-actions      under the Apache License 2.0
+@aws-cdk/aws-dynamodb                under the Apache License 2.0
+@aws-cdk/aws-ecs-patterns            under the Apache License 2.0 
+@aws-cdk/aws-events-targets          under the Apache License 2.0
+@aws-cdk/aws-lambda                  under the Apache License 2.0 
+@aws-cdk/aws-networkfirewall         under the Apache License 2.0
+@aws-cdk/aws-s3-deployment           under the Apache License 2.0
+@aws-cdk/aws-synthetics              under the Apache License 2.0
+@aws-cdk/core                        under the Apache License 2.0
+@aws-sdk/client-config-servic        under the Apache License 2.0
+@aws-sdk/client-dynamodb             under the Apache License 2.0
+@aws-sdk/client-lambda               under the Apache License 2.0
+@aws-sdk/client-network-firewall     under the Apache License 2.0
+@aws-sdk/client-sns                  under the Apache License 2.0
+@aws-sdk/middleware-retry            under the Apache License 2.0
+@aws-sdk/node-http-handler           under the Apache License 2.0
+@aws-sdk/signature-v4                under the Apache License 2.0
+@aws-sdk/smithy-client               under the Apache License 2.0
+@aws-sdk/util-arn-parser             under the Apache License 2.0
+@aws-sdk/util-dynamodb               under the Apache License 2.0
+@aws-sdk/util-utf8-node              under the Apache License 2.0
+aws-sdk                              under the Apache License 2.0
+aws-xray-sdk                         under the Apache License 2.0
+reflect-metadata@                    under the Apache License 2.0
+
+@middy/core                          under the MIT License (MIT)
+@middy/error-logger                  under the MIT License (MIT)
+@middy/http-cors                     under the MIT License (MIT)
+@middy/input-output-logger           under the MIT License (MIT)
+@types/jest                          under the MIT License (MIT)
+aws-sdk                              under the MIT License (MIT)
+axios                                under the MIT License (MIT)
+mem                                  under the MIT License (MIT)
+moment                               under the MIT License (MIT)
+p-memoize                            under the MIT License (MIT)
+source-map-support                   under the MIT License (MIT)
+tsyringe                             under the MIT License (MIT)
+uuid                                 under the MIT License (MIT)
+winston                              under the MIT License (MIT)
+jest                                 under the MIT License (MIT)
+ts-jest                              under the MIT License (MIT)
+ts-node                              under the MIT License (MIT)

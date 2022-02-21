@@ -1,0 +1,7 @@
+FROM openpolicyagent/opa:0.26.0
+
+COPY ./build/default.tar.gz default.tar.gz
+
+EXPOSE 8181
+
+CMD ["run", "-b", "default.tar.gz", "-s"]

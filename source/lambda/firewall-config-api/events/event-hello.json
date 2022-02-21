@@ -1,0 +1,7 @@
+{
+    "httpMethod": "GET",
+    "resource": "rulegroups",
+    "pathParameters": {
+        "id": "id1"
+    }
+}

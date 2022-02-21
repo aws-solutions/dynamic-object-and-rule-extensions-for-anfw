@@ -1,0 +1,38 @@
+{
+    "input": {
+        "request": {
+            "policies": [
+                "cfnnagComplianceViolations"
+            ],
+            "context": {
+                "requester": {
+                    "arn": "arn-bla",
+                    "accountId": 123,
+                    "role": "admin"
+                }
+            },
+            "type": "CREATE",
+            "content": {
+                "object": {
+                    "id": "Ec2_SUBNET",
+                    "port": {
+                        "type": "Any"
+                    },
+                    "type": "Arn",
+                    "value": "arn:aws:ec2:ap-southeast-2:10000:subnet/subnet-0290eedfd4a706c55"
+                },
+                "rules": {
+                    "action": "pass",
+                    "destination": "Onprem_Server",
+                    "failureReasons": [],
+                    "id": "auto-gen082b45f4-d814-4e18-b5c1-28a13a494072",
+                    "protocol": "tcp",
+                    "ruleGroupId": "rule-group-003",
+                    "source": "Ec2_Arn",
+                    "status": "ACTIVE",
+                    "version": 243
+                }
+            }
+        }
+    }
+}

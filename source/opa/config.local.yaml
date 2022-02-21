@@ -1,0 +1,16 @@
+services:
+  opa_default_service:
+    url: http://localhost:9191
+    
+decision_logs:
+  service: opa_default_service
+  console: true
+
+bundles:
+  policy:
+    service: opa_default_service
+    resource: bundles/default.tar.gz
+    persist: true
+    polling:
+      min_delay_seconds: 60
+      max_delay_seconds: 120
