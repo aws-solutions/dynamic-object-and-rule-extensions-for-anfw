@@ -1,5 +1,5 @@
 {
-  "networkFirewallRuleGroupNamePattern": "anfwconfig-*",
+  "networkFirewallRuleGroupNamePattern": "default-anfwconfig-rule-*",
   "defaultAggregatorName": "org-replicator",
   "apiGatewayType": "private",
   "enableOpa": false

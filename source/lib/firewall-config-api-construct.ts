@@ -207,7 +207,6 @@ export class AutConfigAPIConstructConstruct extends Construct {
         tracing: Tracing.ACTIVE,
         vpc: props.vpc,
         securityGroups: [this.defaultSecurityGroup],
-        reservedConcurrentExecutions: 100,
         environment: {
           RULES_TABLE_NAME: props.rulesTable.tableName,
           OBJECTS_TABLE_NAME: props.objectsTable.tableName,

@@ -168,7 +168,7 @@ export class AutConfigConstructConstruct extends Construct {
                  periodically triggered by schedule lambda to translate \
                  cloud resource reference into network firewall rules",
         deadLetterQueue: autoConfigFunctionDLQ,
-        reservedConcurrentExecutions: 10,
+        reservedConcurrentExecutions: 2,
         vpc: props.vpc,
         vpcSubnets: { subnetType: SubnetType.PRIVATE },
         memorySize: 3008,
