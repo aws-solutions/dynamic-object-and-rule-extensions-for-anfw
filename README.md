@@ -12,7 +12,7 @@ The solution provides a RESTful interface with CRUD APIs for managing rule bundl
 *Request Orchestration*
 
 
-1. The API gateway provides the primary interface for the  customer to interact with this solution, including endpoints to manage the domain entities include Rule/Object/RuleBundle, as well as list Audit info. Please refer to [implementation guide](https://aws.amazon.com/solutions/implementations/dynamic-object-and-rule-extensions-for-anfw/)  for information on updating the Data.
+1. The API gateway provides the primary interface for the  customer to interact with this solution, including endpoints to manage the domain entities include Rule/Object/RuleBundle, as well as list Audit info. Please refer to [implementation guide](https://docs.aws.amazon.com/solutions/latest/dynamic-object-and-rule-extensions-for-aws-network-firewall/welcome.html)  for information on updating the Data.
 2. Request is forwarded to the Lambda function which coordinates the handling of the request.
 3. *Optional* - based on configuration value enableOpa. When enableOpa=ture, Lambda triggers ECS-hosted OPA cluster to exercise validation on the request based on context, e.g, is the requester allowed to perform the Create Object action? 
 4. Lambda issues request data from DynamoDB to read from or write to domain entity tables
@@ -130,7 +130,7 @@ Notice for data retention and audit purpose the following 2 types of resource wi
 
 
 ## Collection of operational metrics
-This solution collects anonymous operational metrics to help AWS improve the quality and features of the solution. For more information, including how to disable this capability, please see the [implementation guide](https://aws.amazon.com/solutions/implementations/dynamic-object-and-rule-extensions-for-anfw/collection-of-operational-metrics.html).
+This solution collects anonymous operational metrics to help AWS improve the quality and features of the solution. For more information, including how to disable this capability, please see the [implementation guide](https://docs.aws.amazon.com/solutions/latest/dynamic-object-and-rule-extensions-for-aws-network-firewall/collection-of-operational-metrics.html).
 
 ***
 
