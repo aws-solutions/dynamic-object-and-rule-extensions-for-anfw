@@ -26,6 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: source/package-lock.json
     - name: Build and Test
       working-directory: ./source
       run: |
