@@ -1,4 +1,11 @@
 # dynamic-object-and-rule-extensions-for-anfw
+[![Node.js CI](https://github.com/aws-solutions/dynamic-object-and-rule-extensions-for-anfw/actions/workflows/node.js.yml/badge.svg)](https://github.com/aws-solutions/dynamic-object-and-rule-extensions-for-anfw/actions/workflows/node.js.yml)
+[![GitHub issues](https://img.shields.io/github/issues/aws-solutions/dynamic-object-and-rule-extensions-for-anfw)](https://github.com/aws-solutions/dynamic-object-and-rule-extensions-for-anfw/issues)
+[![GitHub issues](https://img.shields.io/github/issues/aws-solutions/dynamic-object-and-rule-extensions-for-anfw)](https://github.com/aws-solutions/dynamic-object-and-rule-extensions-for-anfw/issues)
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/aws-solutions/dynamic-object-and-rule-extensions-for-anfw)](https://github.com/aws-solutions/dynamic-object-and-rule-extensions-for-anfw/pulls)
+[![GitHub Release Date](https://img.shields.io/github/release-date/aws-solutions/dynamic-object-and-rule-extensions-for-anfw)](https://github.com/aws-solutions/dynamic-object-and-rule-extensions-for-anfw/releases)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 Dynamic Object and Rule Extensions for AWS Network Firewall enables customers to define objects that reference cloud native elastic resources, and to create AWS Network Firewall rules based on these custom objects.  The solution continually synchronises the customers AWS Network Firewall (ANFW) instance with the state of the referenced elastic resources, to keep it up to date in near real-time.
 
 The solution provides a RESTful interface with CRUD APIs for managing rule bundles, rules and objects. 
