@@ -34,7 +34,6 @@
         "@types/winston": "^2.4.4",
         "@typescript-eslint/eslint-plugin": "^4.13.0",
         "@typescript-eslint/parser": "^4.13.0",
-        "apidoc-markdown": "^6.0.1",
         "aws-sam-webpack-plugin": "^0.8.1",
         "babel-loader": "^8.2.2",
         "clean-webpack-plugin": "^3.0.0",
