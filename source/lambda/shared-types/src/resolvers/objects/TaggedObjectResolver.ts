@@ -70,7 +70,7 @@ export class TaggedObjectResolver extends CloudResourceObjectResolver {
       configAdvancedQueryString
     );
 
-    this.logger.info("resolve target result", data.Results);
+    this.logger.info("resolve target result", data);
 
     return this.parseRule(
       this.logger,

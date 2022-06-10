@@ -18,7 +18,7 @@ import * as cw_actions from "@aws-cdk/aws-cloudwatch-actions";
 import { IFunction } from "@aws-cdk/aws-lambda";
 import * as sns from "@aws-cdk/aws-sns";
 import * as cdk from "@aws-cdk/core";
-import { Duration,  Stack } from "@aws-cdk/core";
+import { Duration, Stack } from "@aws-cdk/core";
 import { ServiceDashboard } from "./service-dashboard";
 
 export interface ApiServiceDashboardProps {

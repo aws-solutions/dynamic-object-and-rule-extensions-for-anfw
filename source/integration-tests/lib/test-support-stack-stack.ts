@@ -13,10 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import * as ec2 from "@aws-cdk/aws-ec2";
 import * as autoscaling from "@aws-cdk/aws-autoscaling";
+import * as ec2 from "@aws-cdk/aws-ec2";
+import * as lambda from "@aws-cdk/aws-lambda";
 import * as cdk from "@aws-cdk/core";
 import { CfnOutput, Tags } from "@aws-cdk/core";
+import * as path from "path";
 export const TAG_KEY = "FF_TEST";
 
 export const TAG_VALUE = "true";
@@ -32,6 +34,8 @@ export const TAGGED_INSTANCE_OUTPUT_KEY = "TestTaggedInstance";
 export const SUBNET_OUTPUT_KEY = "TestSubnet";
 
 export const ASG_OUTPUT_KEY = "TestASG";
+
+export const LAMBDA_TAG_KEY = "OPEN_ENI_LAMBDA";
 
 export class TestSupportStackStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -91,6 +95,26 @@ export class TestSupportStackStack extends cdk.Stack {
         generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
       }),
     });
+    // lambda in vpc
+    const lambdaInVPC = new lambda.Function(
+      this,
+      "sampleApp",
+
+      {
+        handler: "app.handler",
+        code: lambda.Code.fromAsset(
+          path.resolve(__dirname, `../lambda/sample_app`)
+        ),
+
+        runtime: lambda.Runtime.NODEJS_14_X,
+        description: "Firefly integration supporting test lambda within VPC",
+        vpc: vpc,
+        allowPublicSubnet: true,
+        // vpcSubnets: { subnetType: SubnetType.PRIVATE_WITH_NAT },
+      }
+    );
+    Tags.of(lambdaInVPC).add(LAMBDA_TAG_KEY, TAG_VALUE);
+
     const ec2Arn = cdk.Arn.format(
       {
         account: this.account,

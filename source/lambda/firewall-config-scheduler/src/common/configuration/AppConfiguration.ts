@@ -39,7 +39,7 @@ export class AppConfiguration {
         this.autoConfigFunctionName =
             process.env.AUTO_CONFIG_FUNCTION_NAME ?? 'DEFAULT_FUNCTION';
         this.solutionId = process.env.SOLUTION_ID ?? 'SO0196';
-        this.version = process.env.VERSION ?? 'v1.0.0';
+        this.version = process.env.VERSION ?? 'v1.1.0';
         this.defaultAggregatorName =
             process.env.DEFAULT_AGGREGATOR_NAME ?? 'DEFAULT_AGGREGATOR';
         this.definitionSources = [

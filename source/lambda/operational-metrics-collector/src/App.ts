@@ -101,7 +101,7 @@ async function sendAnonymousMetric(
     console.log('request uuid', uuid);
     const payload: MetricPayload = {
         Solution: SOLUTION_ID ?? '',
-        Version: SOLUTION_VERSION ?? '1.0.0',
+        Version: SOLUTION_VERSION ?? '1.1.0',
         UUID: uuid,
         TimeStamp: moment.utc().format('YYYY-MM-DD HH:mm:ss.S'),
         Data: {

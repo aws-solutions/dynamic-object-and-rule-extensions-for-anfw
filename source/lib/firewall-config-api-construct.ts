@@ -47,6 +47,7 @@ export interface AutConfigAPIConstructProps {
   crossAccountNetworkFirewallReadWriteRole?: string;
   apiGatewayType?: string;
   canaryRole?: iam.IRole;
+  secOpsAdminRole?: iam.IRole;
 }
 
 export interface ApiEndpoint {
@@ -232,10 +233,12 @@ export class AutConfigAPIConstructConstruct extends Construct {
     props.ruleBundlesTable.grantReadWriteData(this.apiFunction);
     props.rulesTable.grantReadWriteData(this.apiFunction);
     props.auditsTable.grantReadWriteData(this.apiFunction);
-    const adminUserRole = new iam.Role(this, "api-admin-role", {
-      assumedBy: new iam.AccountRootPrincipal(),
-      roleName: `ObjectExtensionSecOpsAdminRole-${Stack.of(this).region}`,
-    });
+    const adminUserRole =
+      props.secOpsAdminRole ??
+      new iam.Role(this, "api-admin-role", {
+        assumedBy: new iam.AccountRootPrincipal(),
+        roleName: `ObjectExtensionSecOpsAdminRole-${Stack.of(this).region}`,
+      });
     const appOwnerApiAccessRole = new iam.Role(this, "api-app-owner-role", {
       assumedBy: new iam.AccountRootPrincipal(),
     });

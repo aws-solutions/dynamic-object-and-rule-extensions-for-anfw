@@ -54,7 +54,7 @@ export class AppConfiguration {
         this.crossAccountNetworkFirewallReadWriteRoleArn =
             process.env.CROSS_ACCOUNT_ANFW_ROLE ?? undefined;
         this.solutionId = process.env.SOLUTION_ID ?? 'SO0196';
-        this.version = process.env.VERSION ?? 'v1.0.0';
+        this.version = process.env.VERSION ?? 'v1.1.0';
         this.definitionSources = [
             {
                 name: 'RULE',

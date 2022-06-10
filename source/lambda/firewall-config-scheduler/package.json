@@ -1,7 +1,7 @@
 {
     "name": "anfw-object-extensions-config-scheduler",
     "description": "AWS Network Firewall Firefly Extension Config Scheduler",
-    "version": "0.2.0",
+    "version": "1.1.0",
     "author": "Amazon Web Services",
     "license": "Apache-2.0",
     "dependencies": {

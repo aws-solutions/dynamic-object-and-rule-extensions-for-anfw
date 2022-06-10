@@ -17,7 +17,6 @@ import {
   ConfigServiceClient,
   SelectAggregateResourceConfigCommand,
   SelectAggregateResourceConfigCommandInput,
-  SelectAggregateResourceConfigCommandOutput,
 } from "@aws-sdk/client-config-service";
 import pMemoize from "p-memoize";
 import {
@@ -38,7 +37,7 @@ export abstract class CloudResourceObjectResolver implements ObjectResolver {
   queryAwsConfig: (
     key: FlowRuleBundle | undefined,
     value: string | undefined
-  ) => Promise<SelectAggregateResourceConfigCommandOutput>;
+  ) => Promise<string[]>;
 
   constructor(
     protected configServiceClient: ConfigServiceClient,
@@ -54,25 +53,34 @@ export abstract class CloudResourceObjectResolver implements ObjectResolver {
   protected async rawQueryAwsConfig(
     ruleGroup: FlowRuleBundle | undefined,
     configAdvancedQueryString: string | undefined
-  ): Promise<SelectAggregateResourceConfigCommandOutput> {
-    const params: SelectAggregateResourceConfigCommandInput = {
-      ConfigurationAggregatorName:
-        ruleGroup?.aggregatorName ?? this.defaultAggregatorName,
-      Expression: configAdvancedQueryString,
-    };
+  ): Promise<string[]> {
+    let results: string[] = [];
+    let nextToken;
 
-    const command = new SelectAggregateResourceConfigCommand(params);
-    return this.configServiceClient.send(command);
+    do {
+      const params: SelectAggregateResourceConfigCommandInput = {
+        ConfigurationAggregatorName:
+          ruleGroup?.aggregatorName ?? this.defaultAggregatorName,
+        Expression: configAdvancedQueryString,
+      };
+      const command = new SelectAggregateResourceConfigCommand(params);
+      const response = await this.configServiceClient.send(command);
+      nextToken = response.NextToken;
+      results = results.concat(response.Results ?? []);
+    } while (nextToken);
+    return results;
   }
 
   protected parseResult(
     logger: Logger,
-    data: SelectAggregateResourceConfigCommandOutput,
+    data: string[],
     ruleObject: FlowObject
   ): ResolvedFlowObject {
-    logger.info("resolveObject result", data.Results);
-    const results = data.Results?.map((r) => <CommonAddress>JSON.parse(r));
-    logger.info("resolveObject QueryInfo", data.QueryInfo);
+    logger.info("resolveObject result", data);
+    const results = data
+      ?.map((r) => <CommonAddress>JSON.parse(r))
+      .filter((i) => i);
+
     logger.info("resolveObject results", results);
     return {
       ...ruleObject,
@@ -101,7 +109,7 @@ export abstract class CloudResourceObjectResolver implements ObjectResolver {
         ...ruleObject,
         addresses: [],
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        failureReasons: ["AwsConfigClient failed " + (e as any).message],
+        failureReasons: ["AwsConfigClient failed " + e.message],
       };
     }
   }

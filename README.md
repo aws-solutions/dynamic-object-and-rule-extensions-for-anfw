@@ -19,7 +19,7 @@ The solution provides a RESTful interface with CRUD APIs for managing rule bundl
 *Request Orchestration*
 
 
-1. The API gateway provides the primary interface for the  customer to interact with this solution, including endpoints to manage the domain entities include Rule/Object/RuleBundle, as well as list Audit info. Please refer to [implementation guide](https://docs.aws.amazon.com/solutions/latest/dynamic-object-and-rule-extensions-for-aws-network-firewall/welcome.html)  for information on updating the Data.
+1. The API gateway provides the primary interface for the  customer to interact with this solution, including endpoints to manage the domain entities include Rule/Object/RuleBundle, as well as list Audit info. Please refer to implementation guide Appendix C: API schema and sample requests for information on updating the Metadata.
 2. Request is forwarded to the Lambda function which coordinates the handling of the request.
 3. *Optional* - based on configuration value enableOpa. When enableOpa=ture, Lambda triggers ECS-hosted OPA cluster to exercise validation on the request based on context, e.g, is the requester allowed to perform the Create Object action? 
 4. Lambda issues request data from DynamoDB to read from or write to domain entity tables
@@ -91,6 +91,21 @@ Upon successfully cloning the repository into your local development environment
 * cli tools zip tar gzip    
 
 
+## Configuration
+| Configuration | Description | Default value| Value type|
+| ----------- | ----------- | ----------- | ----------- |
+| networkFirewallRuleGroupNamePattern |	Allowed Network Firewall rule group pattern	|default-anfwconfig-rule-*|	string |
+| defaultAggregatorName	| AWS Config aggregator name used by this solution, when creating a new rule group. If no aggregator is provided, defaultAggregator will be assigned to the rule group |	org-replicator |	string |
+|ruleResolutionInterval|	The interval rules are resolved and applied into Network Firewall	|10 mins |	integer, min value 5, max value 60|
+| failureNotificationTargetEmails| The email addresses for sending notifications. Once rule resolution failure happens, customer can add their email to the SNS topic manually later on |	[] |	list of strings
+| apiGatewayType | The type of API gateway	|private |	edge \| private
+| enableOpa* |	(OPA specific configuration) Enable OPA cluster to validate rule and object mutation requests |	false	| true \| false
+|certificateArn*|	(OPA specific configuration) ACM certification for the ALB	used when enableOpa is set to true	|
+|crossAccountConfigReadOnlyRole**|	AWS IAM read-only role in the account in which the AWS config is activated	|NULL, target at solution installation account|	string
+|crossAccountNetworkFirewallReadWriteRole**| 	AWS IAM read/write role account in which the AWS network firewall instance is setup| 	NULL, target at solution installation account	| string|
+|objectExtensionSecOpsAdminRole**| 	Customer specified AWS IAM role in solution account which to be used to access solution API| 	arn:aws:iam::<solution-account>:role/ObjectExtensionSecOpsAdminRole-<solution-region>	| ARN|
+
+
 ## Running Unit Tests
 
 The `/source/run-all-tests.sh` script is the centralized script for running all unit, integration, and snapshot tests for both the CDK project as well as any associated Lambda functions or other source code packages.
@@ -102,6 +117,15 @@ chmod +x ./run-unit-tests.sh
 ```
 
 ***
+
+## API schema and examples
+### API schema document
+1. generate api doc  `cd source; npm run doc:firewall-config-api`
+2. the api document is located in [source/lambda/firewall-config-api/doc/index.html](source/lambda/firewall-config-api/doc/index.html)
+
+### API usage example
+see more in [API-Usage-example.md](source/doc/API-Usage-example.md)
+
 
 ## Building and Deploy the solution
 1. Clone the solution source code from its GitHub repository.
@@ -137,7 +161,7 @@ Notice for data retention and audit purpose the following 2 types of resource wi
 
 
 ## Collection of operational metrics
-This solution collects anonymous operational metrics to help AWS improve the quality and features of the solution. For more information, including how to disable this capability, please see the [implementation guide](https://docs.aws.amazon.com/solutions/latest/dynamic-object-and-rule-extensions-for-aws-network-firewall/collection-of-operational-metrics.html).
+This solution collects anonymous operational metrics to help AWS improve the quality and features of the solution. For more information, including how to disable this capability, please see the [implementation guide](deep link into the documentation with specific information about the metrics and how to opt-out).
 
 ***
 

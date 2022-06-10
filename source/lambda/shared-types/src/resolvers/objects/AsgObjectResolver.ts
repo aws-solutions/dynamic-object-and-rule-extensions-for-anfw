@@ -83,7 +83,7 @@ export class AsgObjectResolver extends CloudResourceObjectResolver {
       configAdvancedQueryString
     );
     // public or private
-    const results = data.Results?.map((r) => <ASGInstances>JSON.parse(r));
+    const results = data?.map((r) => <ASGInstances>JSON.parse(r));
 
     this.logger.info("resolveObject results", results);
     return results;
@@ -103,8 +103,6 @@ export class AsgObjectResolver extends CloudResourceObjectResolver {
       queryForInstanceIps
     );
     this.logger.info("query for instance response ", associatedInstanceIpsData);
-    return associatedInstanceIpsData.Results?.map(
-      (r) => <PrivateAddress>JSON.parse(r)
-    );
+    return associatedInstanceIpsData?.map((r) => <PrivateAddress>JSON.parse(r));
   }
 }

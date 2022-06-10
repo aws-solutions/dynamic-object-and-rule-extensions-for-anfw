@@ -1,6 +1,6 @@
 {
   "name": "cdk-solution",
-  "version": "0.2.0",
+  "version": "1.1.0",
   "bin": {
     "cdk-solution": "bin/cdk-solution.js"
   },
@@ -19,6 +19,7 @@
     "install:operational-metrics-collector": "cd  lambda/operational-metrics-collector && npm ci && cd ../..",
     "install:canary": "cd lambda/canary && npm ci && cd ../..",
     "build:firewall-config-api": "cd lambda/firewall-config-api && npm run build && npm run test && cd ../..",
+    "doc:firewall-config-api": "cd lambda/firewall-config-api && npm run build:doc && cd ../..",
     "build:autoconfig-lambda": "cd lambda/firewall-auto-config && npm run build && npm run test && cd ../..",
     "build:firewall-config-scheduler": "cd lambda/firewall-config-scheduler && npm run test && npm run build && cd ../..",
     "build:shared-types": "cd lambda/shared-types && npm run build && npm run test && cd ../..",

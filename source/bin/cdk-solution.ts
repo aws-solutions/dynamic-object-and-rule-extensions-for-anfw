@@ -14,38 +14,38 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import "source-map-support/register";
-import * as cdk from "@aws-cdk/core";
-import { FirewallObjectExtensionSolutionStack } from "../lib/cdk-solution-stack";
+import 'source-map-support/register';
+import * as cdk from '@aws-cdk/core';
+import { FirewallObjectExtensionSolutionStack } from '../lib/cdk-solution-stack';
 
 const app = new cdk.App();
-const SOLUTION_ID = process.env["SOLUTION_ID"]
-  ? process.env["SOLUTION_ID"]
-  : "SO0196";
-const VERSION = process.env["VERSION"] ? process.env["VERSION"] : "v1.0.0";
+const SOLUTION_ID = process.env['SOLUTION_ID']
+    ? process.env['SOLUTION_ID']
+    : 'SO0196';
+const VERSION = process.env['VERSION'] ? process.env['VERSION'] : 'v1.1.0';
 
 const solutionProperty = {
-  description: `(${SOLUTION_ID}) - The AWS CDK template for deployment of the Dynamic Object and Rule Extensions for AWS Network Firewall solution, version: (Version ${VERSION})`,
-  solutionId: SOLUTION_ID,
-  version: VERSION,
+    description: `(${SOLUTION_ID}) - The AWS CDK template for deployment of the Dynamic Object and Rule Extensions for AWS Network Firewall solution, version: (Version ${VERSION})`,
+    solutionId: SOLUTION_ID,
+    version: VERSION,
 };
 
-if (app.node.tryGetContext("account") && app.node.tryGetContext("region")) {
-  new FirewallObjectExtensionSolutionStack(
-    app,
-    "FirewallObjectExtensionSolutionStack",
-    {
-      ...solutionProperty,
-      env: {
-        account: app.node.tryGetContext("account"),
-        region: app.node.tryGetContext("region"),
-      },
-    }
-  );
+if (app.node.tryGetContext('account') && app.node.tryGetContext('region')) {
+    new FirewallObjectExtensionSolutionStack(
+        app,
+        'FirewallObjectExtensionSolutionStack',
+        {
+            ...solutionProperty,
+            env: {
+                account: app.node.tryGetContext('account'),
+                region: app.node.tryGetContext('region'),
+            },
+        }
+    );
 } else {
-  new FirewallObjectExtensionSolutionStack(
-    app,
-    "FirewallObjectExtensionSolutionStack",
-    { ...solutionProperty }
-  );
+    new FirewallObjectExtensionSolutionStack(
+        app,
+        'FirewallObjectExtensionSolutionStack',
+        { ...solutionProperty }
+    );
 }

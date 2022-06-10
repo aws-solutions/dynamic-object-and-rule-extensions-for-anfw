@@ -163,7 +163,9 @@ export class CreateObjectHandler
             return ServerlessResponse.ofObject(201, { object });
         } catch (e) {
             this.logger.error('Error while creating rule object', e, input);
-            this.auditEntryForCreation(requestorIdentity, 'REJECTED', input, [e.message]);
+            this.auditEntryForCreation(requestorIdentity, 'REJECTED', input, [
+                (e as Error).message,
+            ]);
             return ServerlessResponse.ofObject(500, {
                 message: 'Error while creating rule object',
             });

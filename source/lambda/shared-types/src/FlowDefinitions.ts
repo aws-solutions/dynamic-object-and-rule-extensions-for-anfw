@@ -21,7 +21,7 @@ export const FLOW_TARGET_TYPES_STR = [
 
 export type FlowPortType = typeof FLOW_TARGET_TYPES_STR[number];
 
-export type FlowObjectType = "Address" | "Cidr" | "Arn" | "Tagged";
+export type FlowObjectType = "Address" | "Cidr" | "Arn" | "Tagged" | "Lambda";
 
 export type FlowRuleProtocol = "tcp" | "udp" | "icmp";
 

@@ -28,6 +28,7 @@ import { Ec2ObjectResolver } from "./objects/Ec2ObjectResolver";
 import { NetworkObjectResolver } from "./objects/NetworkObjectResolver";
 import { SimpleObjectResolver } from "./objects/SimpleObjectResolver";
 import { TaggedObjectResolver } from "./objects/TaggedObjectResolver";
+import { LambdaObjectResolver } from "./objects/LambdaObjectResolver";
 
 export class ObjectResolverFactory {
   private ec2ObjectResolver: Ec2ObjectResolver;
@@ -36,6 +37,7 @@ export class ObjectResolverFactory {
   private taggedObjectResolver: TaggedObjectResolver;
   private configServiceClient: ConfigServiceClient;
   private simpleObjectResolver: SimpleObjectResolver;
+  private lambdaObjectResolver: LambdaObjectResolver;
   constructor(
     private loggerFactory: LoggerFactory,
     region: string,
@@ -93,6 +95,11 @@ export class ObjectResolverFactory {
       this.configServiceClient,
       defaultAggregator
     );
+    this.lambdaObjectResolver = new LambdaObjectResolver(
+      loggerFactory,
+      this.configServiceClient,
+      defaultAggregator
+    );
     this.simpleObjectResolver = new SimpleObjectResolver(loggerFactory);
   }
 
@@ -103,7 +110,8 @@ export class ObjectResolverFactory {
       this.networkObjectResolver,
       this.asgObjectResolver,
       this.taggedObjectResolver,
-      this.simpleObjectResolver
+      this.simpleObjectResolver,
+      this.lambdaObjectResolver
     );
   }
 }

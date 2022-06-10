@@ -66,6 +66,7 @@ export class FirewallObjectExtensionSolutionStack extends cdk.Stack {
     const networkFirewallRuleGroupNamePattern = this.node.tryGetContext(
       "networkFirewallRuleGroupNamePattern"
     );
+    const secOpsAdminRole = this.importAdminRole();
     const crossAccountConfigReadOnlyRole = this.node.tryGetContext(
       "crossAccountConfigReadOnlyRole"
     );
@@ -131,6 +132,7 @@ export class FirewallObjectExtensionSolutionStack extends cdk.Stack {
         crossAccountNetworkFirewallReadWriteRole,
         apiGatewayType,
         canaryRole,
+        secOpsAdminRole,
       }
     );
 
@@ -226,6 +228,21 @@ export class FirewallObjectExtensionSolutionStack extends cdk.Stack {
     });
     Tags.of(this).add("SOLUTION-ID", props.solutionId);
     Tags.of(this).add("VERSION", props.version);
+  }
+
+  private importAdminRole(): iam.IRole | undefined {
+    const secOpsAdminRole = this.node.tryGetContext(
+      "objectExtensionSecOpsAdminRole"
+    );
+    this.validateRoleFormat(secOpsAdminRole, "objectExtensionSecOpsAdminRole");
+    if (secOpsAdminRole) {
+      return iam.Role.fromRoleArn(
+        this,
+        "objectExtensionSecOpsAdminRole",
+        secOpsAdminRole
+      );
+    }
+    return undefined;
   }
 
   private validateRoleFormat(role: string, roleName: string) {

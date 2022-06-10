@@ -25,9 +25,6 @@ import { SUBNET_OBJECT, VPC_OBJECT } from "test/utils/TestObjectData";
 import { anything, instance, mock, resetCalls, when } from "ts-mockito";
 
 describe("Test NetworkObjectResolver", () => {
-  // const applicationConfig: AppConfiguration = mock(AppConfiguration);
-  // const mockedAppConfig = instance(applicationConfig);
-
   const awsConfigClient: ConfigServiceClient = mock(ConfigServiceClient);
   const mockedAwsConfigClient = instance(awsConfigClient);
 

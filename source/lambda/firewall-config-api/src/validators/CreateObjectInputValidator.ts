@@ -24,6 +24,7 @@ type ValidationResult = { isValid: boolean; message: string };
 @injectable()
 export class CreateObjectInputValidator extends InputValidator<FlowObjectInput> {
     DEFAULT_SUPPORT_TYPES = ['autoscaling', 'ec2'];
+    TAG_MAX_NUMBER = 10;
 
     SUPPORTED_RESOURCE_REGX = /(security-group|instance|vpc|subnet)\/(.+)/;
     PORT_RANGE_REGX = /\[(\d+):(\d.+)\]/;
@@ -37,33 +38,34 @@ export class CreateObjectInputValidator extends InputValidator<FlowObjectInput> 
         this.logger = loggerFactory.getLogger('CreateObjectInputValidator');
     }
     protected async validate(input: FlowObjectInput): Promise<void> {
-        if (!this.isValidId(input.id)) {
-            this.errors.push(
-                `id cannot be null or empty and should be matching ${REGEX_ID}`
-            );
-        }
+        this.validId(input);
 
-        if (input.type === 'Arn') {
-            const arnValidationResult = this.validateArn(input.value);
-            if (!arnValidationResult.isValid) {
-                this.errors.push(`Invalid target : ${arnValidationResult.message}.`);
-            }
-        }
+        this.validateArn(input);
 
-        if (input.type === 'Tagged') {
-            const valid = this.isValidTagValue(input.value);
-            if (!valid) {
-                this.errors.push(
-                    `Invalid target : ${input.value} is not a valid tag value.`
-                );
-            }
-        }
+        this.validTagValue(input);
 
         if (this.errors.length > 0) {
             return;
         }
 
         await this.validateObjectReference(input);
+    }
+
+    private validId(input: FlowObjectInput) {
+        if (!this.isValidId(input.id)) {
+            this.errors.push(
+                `id cannot be null or empty and should be matching ${REGEX_ID}`
+            );
+        }
+    }
+
+    private validateArn(input: FlowObjectInput) {
+        if (input.type === 'Arn') {
+            const arnValidationResult = this.isValidateArn(input.value);
+            if (!arnValidationResult.isValid) {
+                this.errors.push(`Invalid target : ${arnValidationResult.message}.`);
+            }
+        }
     }
 
     private async validateObjectReference(input: FlowObjectInput) {
@@ -84,19 +86,31 @@ export class CreateObjectInputValidator extends InputValidator<FlowObjectInput> 
             }
         } catch (e) {
             this.logger.error('can not resolve target', input, e);
-            this.errors.push('can not resolve target', e);
+            this.errors.push('can not resolve target', e as string);
         }
     }
 
-    isValidTagValue(value: unknown): boolean {
-        if (!Array.isArray(value)) {
-            return false;
+    validTagValue(input: FlowObjectInput): void {
+        if (!['Tagged', 'Lambda'].includes(input.type)) {
+            return;
         }
-        const listOfTags: TagValuePair[] = value as TagValuePair[];
-        return listOfTags.some((t) => !this.isBlank(t.key) && !this.isBlank(t.value));
+
+        if (!Array.isArray(input.value)) {
+            this.errors.push(`Invalid target : ${input.value} is not a list`);
+        }
+        const listOfTags: TagValuePair[] = input.value as TagValuePair[];
+        const tagLengthExceeded = listOfTags.length >= this.TAG_MAX_NUMBER;
+        if (tagLengthExceeded) {
+            this.errors.push(
+                `Tag value exceeded max allowed number, max pair ${this.TAG_MAX_NUMBER}`
+            );
+        }
+        if (listOfTags.some((t) => this.isBlank(t.key) || this.isBlank(t.value))) {
+            this.errors.push(`Invalid target : contains empty string`);
+        }
     }
 
-    private validateArn(inputArn: string): ValidationResult {
+    private isValidateArn(inputArn: string): ValidationResult {
         let isValid = false;
         let message = '';
         try {

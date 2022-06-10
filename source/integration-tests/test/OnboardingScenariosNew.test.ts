@@ -44,6 +44,7 @@ import { DescribeStacksInput } from "@aws-sdk/client-cloudformation";
 import {
   ASG_OUTPUT_KEY,
   INSTANCE_OUTPUT_KEY,
+  LAMBDA_TAG_KEY,
   SG_OUTPUT_KEY,
   SUBNET_OUTPUT_KEY,
   TAG_KEY,
@@ -183,6 +184,18 @@ describe("use case 1, onboarding rule bundles", () => {
         },
       ],
       type: "Tagged",
+    });
+
+    // lambda tagged instance
+    validFFCloudResourceTargets.push({
+      id: "Lambda_TAG" + showSuffix,
+      value: [
+        {
+          value: TAG_VALUE,
+          key: LAMBDA_TAG_KEY,
+        },
+      ],
+      type: "Lambda",
     });
     // sg
     const securityGroup = exactOutputValueByKey(outputs, SG_OUTPUT_KEY);

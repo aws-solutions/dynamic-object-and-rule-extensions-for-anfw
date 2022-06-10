@@ -23,6 +23,7 @@ import { ObjectDefinitionResolver, StaticLoggerFactory } from 'shared_types';
 import { FlowObjectInput } from 'src/types/FlowTarget';
 import { CreateObjectInputValidator } from 'src/validators/CreateObjectInputValidator';
 import { anything, instance, mock, reset, verify, when } from 'ts-mockito';
+
 const createGWEvent = (body: Record<string, unknown>) =>
     ({ body: JSON.stringify(body) } as APIGatewayProxyEvent);
 const TEST_OBJECT_INPUT: FlowObjectInput = {
@@ -112,6 +113,19 @@ describe('Test CreateTargetInputValidator', () => {
                 ],
             } as FlowObjectInput,
         ],
+        // lambda
+        [
+            {
+                ...TEST_OBJECT_INPUT,
+                type: 'Lambda',
+                value: [
+                    {
+                        value: '1',
+                        key: 'FF_TEST',
+                    },
+                ],
+            } as FlowObjectInput,
+        ],
     ];
 
     test.each(tests)('Should pass with input %j', async (inputObject) => {
@@ -161,6 +175,28 @@ describe('Test CreateTargetInputValidator', () => {
         ).rejects.toBeDefined();
         // expect(objectUnderTest.errors.length).toBe(2);
         expect(objectUnderTest.errors).toEqual(['Request body contains invalid JSON.']);
+    });
+
+    test('should raise error if number of tags are too large', async () => {
+        type TagValuePair = { key: string; value: string };
+        const eleven_tags_pair: TagValuePair[] = new Array(11).fill({
+            value: '1',
+            key: 'FF_TEST',
+        });
+
+        const tooManyTags = {
+            ...TEST_OBJECT_INPUT,
+            type: 'Lambda',
+            value: eleven_tags_pair,
+        } as FlowObjectInput;
+        await expect(
+            objectUnderTest.parseAndValidate({
+                body: JSON.stringify(tooManyTags),
+            } as APIGatewayProxyEvent)
+        ).rejects.toBeDefined();
+        expect(objectUnderTest.errors).toEqual([
+            'Tag value exceeded max allowed number, max pair 10',
+        ]);
     });
 
     test('should raise error if not support id too long', async () => {
@@ -218,7 +254,23 @@ describe('Test CreateTargetInputValidator', () => {
                 } as APIGatewayProxyEvent)
             ).rejects.toBeDefined();
             expect(objectUnderTest.errors).toEqual([
-                'Invalid target : not map is not a valid tag value.',
+                'Invalid target : not map is not a list',
+            ]);
+            verify(objectDefinitionResolver.resolveTarget(anything())).never();
+        });
+
+        test('tag, should raise error if contains empty value in tag pair', async () => {
+            const invalidTagPair = {
+                ...TEST_OBJECT_TAGGED_INPUT,
+                value: [{ key: '', value: 'val' }],
+            };
+            await expect(
+                objectUnderTest.parseAndValidate({
+                    body: JSON.stringify(invalidTagPair),
+                } as APIGatewayProxyEvent)
+            ).rejects.toBeDefined();
+            expect(objectUnderTest.errors).toEqual([
+                'Invalid target : contains empty string',
             ]);
             verify(objectDefinitionResolver.resolveTarget(anything())).never();
         });

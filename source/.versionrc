@@ -39,6 +39,14 @@
     {
       "filename": "lambda/shared-types/package-lock.json",
       "type": "json"
+    },
+    {
+      "filename": "lambda/operational-metrics-collector/package.json",
+      "type": "json"
+    },
+    {
+      "filename": "lambda/operational-metrics-collector/package-lock.json",
+      "type": "json"
     }
   ],
     "types": [
