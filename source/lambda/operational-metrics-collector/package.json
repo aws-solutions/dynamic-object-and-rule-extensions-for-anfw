@@ -19,7 +19,7 @@
         "@typescript-eslint/eslint-plugin": "^4.13.0",
         "@typescript-eslint/parser": "^4.13.0",
         "aws-sam-webpack-plugin": "^0.8.1",
-        "babel-loader": "^8.2.2",
+        "babel-loader": "^8.3.0",
         "clean-webpack-plugin": "^3.0.0",
         "eslint": "^7.17.0",
         "eslint-config-prettier": "^7.1.0",
