@@ -13,10 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import * as lambda from "@aws-cdk/aws-lambda";
-import * as logs from "@aws-cdk/aws-logs";
-import { Construct, CustomResource, Duration } from "@aws-cdk/core";
-import * as cr from "@aws-cdk/custom-resources";
+
+import { CustomResource, Duration } from "aws-cdk-lib";
+import { Provider } from "aws-cdk-lib/custom-resources";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import { Construct } from "constructs";
 import * as path from "path";
 
 export interface SolutionMetricsCollectorConstructProps {
@@ -58,11 +59,11 @@ export class SolutionMetricsCollectorConstruct extends Construct {
         },
       }
     );
-    const metricsCollectorCrProvider = new cr.Provider(
+    const metricsCollectorCrProvider = new Provider(
       this,
       "metricsCollectorCrProvider",
       {
-        onEventHandler: customResourceLambda
+        onEventHandler: customResourceLambda,
       }
     );
 

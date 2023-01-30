@@ -13,8 +13,22 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import * as cdk from "@aws-cdk/core";
-import * as cw from "@aws-cdk/aws-cloudwatch";
+
+import { Duration } from "aws-cdk-lib";
+import {
+  Dashboard,
+  DimensionsMap,
+  GraphWidget,
+  GraphWidgetProps,
+  IMetric,
+  IWidget,
+  MathExpression,
+  Metric,
+  MetricProps,
+  Statistic,
+  Unit,
+} from "aws-cdk-lib/aws-cloudwatch";
+import { Construct } from "constructs";
 
 export interface ApiGatewayWidgetProps {
   apiName: string;
@@ -38,17 +52,17 @@ export interface ServiceDashboardProps {
   lambdas: LambdaWidgetProps[];
   apiGateway?: ApiGatewayWidgetProps;
   dynamoDbTables?: DynamoDbWidgetProps[];
-  additionalWidgets?: cw.IWidget[];
+  additionalWidgets?: IWidget[];
 }
 
-export class ServiceDashboard extends cdk.Construct {
-  public readonly dashboard: cw.Dashboard;
-  public keyMetrics: Map<string, cw.IMetric>;
+export class ServiceDashboard extends Construct {
+  public readonly dashboard: Dashboard;
+  public keyMetrics: Map<string, IMetric>;
 
-  constructor(scope: cdk.Construct, id: string, props: ServiceDashboardProps) {
+  constructor(scope: Construct, id: string, props: ServiceDashboardProps) {
     super(scope, id);
     this.keyMetrics = new Map();
-    const dashboard = new cw.Dashboard(this, `${props.serviceName}-dashboard`, {
+    const dashboard = new Dashboard(this, `${props.serviceName}-dashboard`, {
       dashboardName: props.dashboardName,
     });
 
@@ -81,29 +95,29 @@ export class ServiceDashboard extends cdk.Construct {
     this.dashboard = dashboard;
   }
 
-  private createLambdaWidgets(lambda: LambdaWidgetProps): cw.IWidget[] {
+  private createLambdaWidgets(lambda: LambdaWidgetProps): IWidget[] {
     const prefix = lambda.friendlyName ?? lambda.functionName;
     const successRateMetrics = this.createSuccessRateMetrics(lambda);
     const maximumDurationMetrics = this.lambdaMetric(
       lambda,
       "Maximum",
       "Duration",
-      cw.Statistic.MAXIMUM,
-      cw.Unit.MILLISECONDS
+      Statistic.MAXIMUM,
+      Unit.MILLISECONDS
     );
     const averageDurationMetrics = this.lambdaMetric(
       lambda,
       "Average",
       "Duration",
-      cw.Statistic.AVERAGE,
-      cw.Unit.MILLISECONDS
+      Statistic.AVERAGE,
+      Unit.MILLISECONDS
     );
     const minDurationMetrics = this.lambdaMetric(
       lambda,
       "Minimum",
       "Duration",
-      cw.Statistic.MINIMUM,
-      cw.Unit.MILLISECONDS
+      Statistic.MINIMUM,
+      Unit.MILLISECONDS
     );
     this.keyMetrics.set(`SUCCESS_RATE_${prefix}`, successRateMetrics);
 
@@ -122,29 +136,29 @@ export class ServiceDashboard extends cdk.Construct {
   }
 
   private createSuccessRateMetrics(lambda: LambdaWidgetProps) {
-    const invocations: cw.IMetric = this.lambdaMetric(
+    const invocations: IMetric = this.lambdaMetric(
       lambda,
       "Invocations",
       "Invocations",
-      cw.Statistic.SUM,
-      cw.Unit.COUNT
+      Statistic.SUM,
+      Unit.COUNT
     );
 
-    const errorCount: cw.IMetric = this.lambdaMetric(
+    const errorCount: IMetric = this.lambdaMetric(
       lambda,
       "Error",
       "Errors",
-      cw.Statistic.SUM,
-      cw.Unit.COUNT
+      Statistic.SUM,
+      Unit.COUNT
     );
 
-    const successRateMetrics = new cw.MathExpression({
+    const successRateMetrics = new MathExpression({
       expression: "100 - 100 * errors / MAX([errors, invocations])",
       usingMetrics: {
         errors: errorCount,
         invocations: invocations,
       },
-      period: cdk.Duration.minutes(5),
+      period: Duration.minutes(5),
       label: "Success rate",
     });
 
@@ -154,7 +168,7 @@ export class ServiceDashboard extends cdk.Construct {
   private createApiWidgets(
     apg: ApiGatewayWidgetProps,
     canaryName?: string
-  ): cw.IWidget[] {
+  ): IWidget[] {
     const metrics = [];
 
     if (canaryName) {
@@ -164,8 +178,8 @@ export class ServiceDashboard extends cdk.Construct {
             metricName: "SuccessPercent",
             namespace: "CloudWatchSynthetics",
             label: "Canary Status",
-            statistic: cw.Statistic.AVERAGE,
-            unit: cw.Unit.PERCENT,
+            statistic: Statistic.AVERAGE,
+            unit: Unit.PERCENT,
             dimensionsMap: { CanaryName: canaryName },
           }),
         ])
@@ -180,8 +194,8 @@ export class ServiceDashboard extends cdk.Construct {
             apg.apiName,
             api.friendlyName ?? `${api.method} ${api.resource}`,
             "Count",
-            cw.Statistic.SUM,
-            cw.Unit.COUNT,
+            Statistic.SUM,
+            Unit.COUNT,
             api.method,
             api.resource
           )
@@ -194,8 +208,8 @@ export class ServiceDashboard extends cdk.Construct {
             apg.apiName,
             api.friendlyName ?? `${api.method} ${api.resource}`,
             "Latency",
-            cw.Statistic.AVERAGE,
-            cw.Unit.MILLISECONDS,
+            Statistic.AVERAGE,
+            Unit.MILLISECONDS,
             api.method,
             api.resource
           )
@@ -208,8 +222,8 @@ export class ServiceDashboard extends cdk.Construct {
             apg.apiName,
             api.friendlyName ?? `${api.method} ${api.resource}`,
             "4XXError",
-            cw.Statistic.SUM,
-            cw.Unit.COUNT,
+            Statistic.SUM,
+            Unit.COUNT,
             api.method,
             api.resource
           )
@@ -219,8 +233,8 @@ export class ServiceDashboard extends cdk.Construct {
             apg.apiName,
             api.friendlyName ?? `${api.method} ${api.resource}`,
             "5XXError",
-            cw.Statistic.SUM,
-            cw.Unit.COUNT,
+            Statistic.SUM,
+            Unit.COUNT,
             api.method,
             api.resource
           )
@@ -233,7 +247,7 @@ export class ServiceDashboard extends cdk.Construct {
     return metrics;
   }
 
-  private lambdaWidget(title: string, metrics: cw.IMetric[]): cw.IWidget {
+  private lambdaWidget(title: string, metrics: IMetric[]): IWidget {
     return this.createGraphWidget({ title, left: metrics });
   }
 
@@ -241,9 +255,9 @@ export class ServiceDashboard extends cdk.Construct {
     lambda: LambdaWidgetProps,
     label: string,
     metricName: string,
-    statistic: cw.Statistic,
-    unit?: cw.Unit
-  ): cw.IMetric {
+    statistic: Statistic,
+    unit?: Unit
+  ): IMetric {
     return this.createGraphMetric({
       label,
       metricName,
@@ -254,9 +268,7 @@ export class ServiceDashboard extends cdk.Construct {
     });
   }
 
-  private createDynamoDbWidgets(
-    dynamoDbTable: DynamoDbWidgetProps
-  ): cw.IWidget[] {
+  private createDynamoDbWidgets(dynamoDbTable: DynamoDbWidgetProps): IWidget[] {
     const prefix = dynamoDbTable.friendlyTableName ?? dynamoDbTable.tableName;
     return [
       this.ddbWidget(`${prefix} - Capacity`, [
@@ -264,29 +276,29 @@ export class ServiceDashboard extends cdk.Construct {
           dynamoDbTable.tableName,
           "Provisioned Read",
           "ProvisionedReadCapacityUnits",
-          cw.Statistic.AVERAGE,
-          cw.Unit.COUNT
+          Statistic.AVERAGE,
+          Unit.COUNT
         ),
         this.ddbMetric(
           dynamoDbTable.tableName,
           "Consumed Read",
           "ConsumedReadCapacityUnits",
-          cw.Statistic.AVERAGE,
-          cw.Unit.COUNT
+          Statistic.AVERAGE,
+          Unit.COUNT
         ),
         this.ddbMetric(
           dynamoDbTable.tableName,
           "Provisioned Read",
           "ProvisionedWriteCapacityUnits",
-          cw.Statistic.AVERAGE,
-          cw.Unit.COUNT
+          Statistic.AVERAGE,
+          Unit.COUNT
         ),
         this.ddbMetric(
           dynamoDbTable.tableName,
           "Consumed Read",
           "ConsumedWriteCapacityUnits",
-          cw.Statistic.AVERAGE,
-          cw.Unit.COUNT
+          Statistic.AVERAGE,
+          Unit.COUNT
         ),
       ]),
       this.ddbWidget(`${prefix} - Latency`, [
@@ -294,32 +306,32 @@ export class ServiceDashboard extends cdk.Construct {
           dynamoDbTable.tableName,
           "Get Latency",
           "SuccessfulRequestLatency",
-          cw.Statistic.AVERAGE,
-          cw.Unit.MILLISECONDS,
+          Statistic.AVERAGE,
+          Unit.MILLISECONDS,
           { Operation: "GetItem" }
         ),
         this.ddbMetric(
           dynamoDbTable.tableName,
           "Put Latency",
           "SuccessfulRequestLatency",
-          cw.Statistic.AVERAGE,
-          cw.Unit.MILLISECONDS,
+          Statistic.AVERAGE,
+          Unit.MILLISECONDS,
           { Operation: "PutItem" }
         ),
         this.ddbMetric(
           dynamoDbTable.tableName,
           "Scan Latency",
           "SuccessfulRequestLatency",
-          cw.Statistic.AVERAGE,
-          cw.Unit.MILLISECONDS,
+          Statistic.AVERAGE,
+          Unit.MILLISECONDS,
           { Operation: "Scan" }
         ),
         this.ddbMetric(
           dynamoDbTable.tableName,
           "Query Latency",
           "SuccessfulRequestLatency",
-          cw.Statistic.AVERAGE,
-          cw.Unit.MILLISECONDS,
+          Statistic.AVERAGE,
+          Unit.MILLISECONDS,
           { Operation: "Query" }
         ),
       ]),
@@ -328,8 +340,8 @@ export class ServiceDashboard extends cdk.Construct {
           dynamoDbTable.tableName,
           "Get",
           "SystemErrors",
-          cw.Statistic.SUM,
-          cw.Unit.COUNT,
+          Statistic.SUM,
+          Unit.COUNT,
           {
             Operation: "GetItem",
           }
@@ -338,8 +350,8 @@ export class ServiceDashboard extends cdk.Construct {
           dynamoDbTable.tableName,
           "Batch Get",
           "SystemErrors",
-          cw.Statistic.SUM,
-          cw.Unit.COUNT,
+          Statistic.SUM,
+          Unit.COUNT,
           {
             Operation: "BatchGetItem",
           }
@@ -348,8 +360,8 @@ export class ServiceDashboard extends cdk.Construct {
           dynamoDbTable.tableName,
           "Scan",
           "SystemErrors",
-          cw.Statistic.SUM,
-          cw.Unit.COUNT,
+          Statistic.SUM,
+          Unit.COUNT,
           {
             Operation: "Scan",
           }
@@ -358,8 +370,8 @@ export class ServiceDashboard extends cdk.Construct {
           dynamoDbTable.tableName,
           "Query",
           "SystemErrors",
-          cw.Statistic.SUM,
-          cw.Unit.COUNT,
+          Statistic.SUM,
+          Unit.COUNT,
           {
             Operation: "Query",
           }
@@ -368,8 +380,8 @@ export class ServiceDashboard extends cdk.Construct {
           dynamoDbTable.tableName,
           "Put",
           "SystemErrors",
-          cw.Statistic.SUM,
-          cw.Unit.COUNT,
+          Statistic.SUM,
+          Unit.COUNT,
           {
             Operation: "PutItem",
           }
@@ -378,8 +390,8 @@ export class ServiceDashboard extends cdk.Construct {
           dynamoDbTable.tableName,
           "Batch Write",
           "SystemErrors",
-          cw.Statistic.SUM,
-          cw.Unit.COUNT,
+          Statistic.SUM,
+          Unit.COUNT,
           {
             Operation: "BatchWriteItem",
           }
@@ -388,8 +400,8 @@ export class ServiceDashboard extends cdk.Construct {
           dynamoDbTable.tableName,
           "Update",
           "SystemErrors",
-          cw.Statistic.SUM,
-          cw.Unit.COUNT,
+          Statistic.SUM,
+          Unit.COUNT,
           {
             Operation: "UpdateItem",
           }
@@ -398,8 +410,8 @@ export class ServiceDashboard extends cdk.Construct {
           dynamoDbTable.tableName,
           "Delete",
           "SystemErrors",
-          cw.Statistic.SUM,
-          cw.Unit.COUNT,
+          Statistic.SUM,
+          Unit.COUNT,
           {
             Operation: "DeleteItem",
           }
@@ -410,8 +422,8 @@ export class ServiceDashboard extends cdk.Construct {
           dynamoDbTable.tableName,
           "Throttled Requests",
           "ThrottledRequests",
-          cw.Statistic.SUM,
-          cw.Unit.COUNT
+          Statistic.SUM,
+          Unit.COUNT
         ),
       ]),
     ];
@@ -421,11 +433,11 @@ export class ServiceDashboard extends cdk.Construct {
     tableName: string,
     label: string,
     metricName: string,
-    statistic: cw.Statistic,
-    unit?: cw.Unit,
+    statistic: Statistic,
+    unit?: Unit,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dimensions?: cw.DimensionsMap
-  ): cw.IMetric {
+    dimensions?: DimensionsMap
+  ): IMetric {
     return this.createGraphMetric({
       label,
       metricName,
@@ -436,17 +448,17 @@ export class ServiceDashboard extends cdk.Construct {
     });
   }
 
-  private ddbWidget(title: string, metrics: cw.IMetric[]): cw.IWidget {
+  private ddbWidget(title: string, metrics: IMetric[]): IWidget {
     return this.createGraphWidget({ title, left: metrics });
   }
 
   private apiGatewayWidget(
     title: string,
-    leftMetrics: cw.IMetric[],
-    rightMetrics?: cw.IMetric[],
+    leftMetrics: IMetric[],
+    rightMetrics?: IMetric[],
     leftLabel?: string,
     rightLabel?: string
-  ): cw.IWidget {
+  ): IWidget {
     return this.createGraphWidget({
       title,
       left: leftMetrics,
@@ -460,13 +472,13 @@ export class ServiceDashboard extends cdk.Construct {
     apiName: string,
     label: string,
     metricName: string,
-    statistic: cw.Statistic,
-    unit?: cw.Unit,
+    statistic: Statistic,
+    unit?: Unit,
     method?: string,
     resource?: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dimensions?: cw.DimensionsMap
-  ): cw.IMetric {
+    dimensions?: DimensionsMap
+  ): IMetric {
     return this.createGraphMetric({
       label,
       metricName,
@@ -483,8 +495,8 @@ export class ServiceDashboard extends cdk.Construct {
     });
   }
 
-  private createGraphWidget(props: cw.GraphWidgetProps): cw.GraphWidget {
-    return new cw.GraphWidget({
+  private createGraphWidget(props: GraphWidgetProps): GraphWidget {
+    return new GraphWidget({
       height: 6,
       width: 6,
       liveData: true,
@@ -492,7 +504,7 @@ export class ServiceDashboard extends cdk.Construct {
     });
   }
 
-  private createGraphMetric(props: cw.MetricProps): cw.IMetric {
-    return new cw.Metric(props);
+  private createGraphMetric(props: MetricProps): IMetric {
+    return new Metric(props);
   }
 }

@@ -13,24 +13,25 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import * as certificateMgr from "@aws-cdk/aws-certificatemanager";
-import * as ec2 from "@aws-cdk/aws-ec2";
-import { SubnetType } from "@aws-cdk/aws-ec2";
-import * as ecr_assets from "@aws-cdk/aws-ecr-assets";
-import * as ecs from "@aws-cdk/aws-ecs";
-import { FargatePlatformVersion } from "@aws-cdk/aws-ecs";
+import * as certificateMgr from "aws-cdk-lib/aws-certificatemanager";
+import * as ec2 from "aws-cdk-lib/aws-ec2";
+import { SubnetType } from "aws-cdk-lib/aws-ec2";
+import * as ecr_assets from "aws-cdk-lib/aws-ecr-assets";
+import * as ecs from "aws-cdk-lib/aws-ecs";
+import { FargatePlatformVersion } from "aws-cdk-lib/aws-ecs";
 import {
   ApplicationLoadBalancedFargateService,
   ApplicationLoadBalancedServiceRecordType,
-} from "@aws-cdk/aws-ecs-patterns";
-import * as elbv2 from "@aws-cdk/aws-elasticloadbalancingv2";
-import * as iam from "@aws-cdk/aws-iam";
-import * as logs from "@aws-cdk/aws-logs";
-import * as route53 from "@aws-cdk/aws-route53";
-import * as s3 from "@aws-cdk/aws-s3";
-import * as s3deploy from "@aws-cdk/aws-s3-deployment";
-import * as cdk from "@aws-cdk/core";
-import { CfnOutput, Stack, Token } from "@aws-cdk/core";
+} from "aws-cdk-lib/aws-ecs-patterns";
+import * as elbv2 from "aws-cdk-lib/aws-elasticloadbalancingv2";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as logs from "aws-cdk-lib/aws-logs";
+import * as route53 from "aws-cdk-lib/aws-route53";
+import * as s3 from "aws-cdk-lib/aws-s3";
+import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
+import * as cdk from "aws-cdk-lib";
+import { CfnOutput, Stack, Token } from "aws-cdk-lib";
+import { Construct } from "constructs";
 import * as path from "path";
 import { FirewallConfigSecureBucket } from "./firewall-config-secure-bucket";
 export interface OpaECSClusterProps {
@@ -52,10 +53,10 @@ const ulimits: ecs.Ulimit[] = [
 
 // TODO: this is a region aware account as listed above, since we are assume only on ap-southeast-2 for alpha, it's good for now
 const CLOUD_WATCH_ACCOUNT = "783225319266";
-export class OpaECSCluster extends cdk.Construct {
+export class OpaECSCluster extends Construct {
   opaALBDnsName: string;
   loadBalancedFargateService: ApplicationLoadBalancedFargateService;
-  constructor(scope: cdk.Construct, id: string, props: OpaECSClusterProps) {
+  constructor(scope: Construct, id: string, props: OpaECSClusterProps) {
     super(scope, id);
     const cluster = new ecs.Cluster(this, "OpaCluster", { vpc: props.vpc });
 
@@ -82,7 +83,10 @@ export class OpaECSCluster extends cdk.Construct {
     const lbProps = {
       vpc: props.vpc,
       internetFacing: false,
-      vpcSubnets: { subnetType: SubnetType.PRIVATE, onePerAz: true },
+      vpcSubnets: {
+        subnetType: SubnetType.PRIVATE_WITH_EGRESS,
+        onePerAz: true,
+      },
     };
     const lb = new elbv2.ApplicationLoadBalancer(this, "LB", lbProps);
 
@@ -106,7 +110,7 @@ export class OpaECSCluster extends cdk.Construct {
         protocol: elbv2.ApplicationProtocol.HTTPS,
         // The following 3 parameters are workaround to avoid creating a record and init a new cert
         domainName: "www.dummy.com",
-        taskSubnets: { subnetType: SubnetType.PRIVATE },
+        taskSubnets: { subnetType: SubnetType.PRIVATE_WITH_EGRESS },
         domainZone: {} as route53.IHostedZone,
         recordType: ApplicationLoadBalancedServiceRecordType.NONE,
         openListener: false,
@@ -135,7 +139,7 @@ export class OpaECSCluster extends cdk.Construct {
         portMappings: [{ containerPort: 8080 }],
         image: ecs.ContainerImage.fromEcrRepository(
           asset.repository,
-          asset.sourceHash
+          asset.assetHash
         ),
         logging: ecs.LogDriver.awsLogs({
           logRetention: logs.RetentionDays.TEN_YEARS,

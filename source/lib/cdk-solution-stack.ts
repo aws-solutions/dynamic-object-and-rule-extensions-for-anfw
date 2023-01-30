@@ -14,11 +14,25 @@
   limitations under the License.
 */
 
-import * as ec2 from "@aws-cdk/aws-ec2";
-import * as iam from "@aws-cdk/aws-iam";
-import * as synthetics from "@aws-cdk/aws-synthetics";
-import * as cdk from "@aws-cdk/core";
-import { Annotations, RemovalPolicy, Stack, Tags } from "@aws-cdk/core";
+import {
+  Annotations,
+  RemovalPolicy,
+  Stack,
+  StackProps,
+  Tags,
+} from "aws-cdk-lib";
+import { IVpc, Port, SecurityGroup } from "aws-cdk-lib/aws-ec2";
+import {
+  Effect,
+  IRole,
+  PolicyStatement,
+  Role,
+  ServicePrincipal,
+} from "aws-cdk-lib/aws-iam";
+
+import * as synthetics from "@aws-cdk/aws-synthetics-alpha";
+import { CfnCanary } from "aws-cdk-lib/aws-synthetics";
+import { Construct } from "constructs";
 import * as fs from "fs";
 import * as path from "path";
 import { AutConfigConstructConstruct } from "./firewall-auto-config-construct";
@@ -26,21 +40,21 @@ import { AutConfigAPIConstructConstruct } from "./firewall-config-api-construct"
 import { AutConfigDataSourceConstructConstruct } from "./firewall-datasource-construct";
 import { AutConfigNetworkConstruct } from "./firewall-network-construct";
 import { ApiServiceDashboard } from "./monitor/api-dashboard";
-import { AGSSyntheticsCanary } from "./monitor/api-synthetics-canary";
+import { AWSSyntheticsCanary } from "./monitor/api-synthetics-canary";
 import { SolutionMetricsCollectorConstruct } from "./monitor/solution-metrics-collector";
 import { OpaECSCluster } from "./opa-cluster";
 export interface FirewallObjectExtensionSolutionStackProperty
-  extends cdk.StackProps {
+  extends StackProps {
   solutionId: string;
   version: string;
 }
 
-export class FirewallObjectExtensionSolutionStack extends cdk.Stack {
+export class FirewallObjectExtensionSolutionStack extends Stack {
   SOLUTION_ID = "SO0196";
   REG_IAM_ARN = /arn:aws:iam::\d{12}:role\/\w+/;
   public readonly apiGatewayId: string;
   constructor(
-    scope: cdk.Construct,
+    scope: Construct,
     id: string,
     props: FirewallObjectExtensionSolutionStackProperty
   ) {
@@ -107,8 +121,8 @@ export class FirewallObjectExtensionSolutionStack extends cdk.Stack {
     );
 
     const opaCluster = this.createOPAClusterByConfig(enableOpa, vpc);
-    const canaryRole = new iam.Role(this, `CanaryExecutionRole`, {
-      assumedBy: new iam.ServicePrincipal("lambda"),
+    const canaryRole = new Role(this, `CanaryExecutionRole`, {
+      assumedBy: new ServicePrincipal("lambda"),
     });
 
     const apiConstruct = new AutConfigAPIConstructConstruct(
@@ -138,14 +152,14 @@ export class FirewallObjectExtensionSolutionStack extends cdk.Stack {
 
     // Has to do this after all the construct initialized otherwise it would be a circular dependency
     if (opaCluster) {
-      const allowLambdaSg = new ec2.SecurityGroup(this, "SecurityGroup", {
+      const allowLambdaSg = new SecurityGroup(this, "SecurityGroup", {
         vpc: vpc,
         description: "Security group allowing lambda SG to access OPA ",
         allowAllOutbound: true,
       });
       allowLambdaSg.addIngressRule(
         apiConstruct.defaultSecurityGroup,
-        ec2.Port.tcp(443)
+        Port.tcp(443)
       );
       opaCluster?.loadBalancedFargateService.loadBalancer.addSecurityGroup(
         allowLambdaSg
@@ -192,8 +206,8 @@ export class FirewallObjectExtensionSolutionStack extends cdk.Stack {
       canaryRole
     );
     canary.canaryRole.addToPolicy(
-      new iam.PolicyStatement({
-        effect: iam.Effect.ALLOW,
+      new PolicyStatement({
+        effect: Effect.ALLOW,
         actions: ["execute-api:Invoke"],
         resources: [
           `arn:aws:execute-api:${Stack.of(this).region}:${
@@ -230,13 +244,13 @@ export class FirewallObjectExtensionSolutionStack extends cdk.Stack {
     Tags.of(this).add("VERSION", props.version);
   }
 
-  private importAdminRole(): iam.IRole | undefined {
+  private importAdminRole(): IRole | undefined {
     const secOpsAdminRole = this.node.tryGetContext(
       "objectExtensionSecOpsAdminRole"
     );
     this.validateRoleFormat(secOpsAdminRole, "objectExtensionSecOpsAdminRole");
     if (secOpsAdminRole) {
-      return iam.Role.fromRoleArn(
+      return Role.fromRoleArn(
         this,
         "objectExtensionSecOpsAdminRole",
         secOpsAdminRole
@@ -274,8 +288,8 @@ export class FirewallObjectExtensionSolutionStack extends cdk.Stack {
       .flatMap((i) => i);
 
     networkConstruct.ddbEndpoint?.addToPolicy(
-      iam.PolicyStatement.fromJson({
-        Effect: iam.Effect.ALLOW,
+      PolicyStatement.fromJson({
+        Effect: Effect.ALLOW,
         Principal: {
           AWS: "*",
         },
@@ -289,8 +303,8 @@ export class FirewallObjectExtensionSolutionStack extends cdk.Stack {
       })
     );
     networkConstruct.ddbEndpoint?.addToPolicy(
-      iam.PolicyStatement.fromJson({
-        Effect: iam.Effect.ALLOW,
+      PolicyStatement.fromJson({
+        Effect: Effect.ALLOW,
         Principal: {
           AWS: "*",
         },
@@ -305,8 +319,8 @@ export class FirewallObjectExtensionSolutionStack extends cdk.Stack {
       })
     );
     networkConstruct.ddbEndpoint?.addToPolicy(
-      iam.PolicyStatement.fromJson({
-        Effect: iam.Effect.ALLOW,
+      PolicyStatement.fromJson({
+        Effect: Effect.ALLOW,
         Principal: {
           AWS: "*",
         },
@@ -324,7 +338,7 @@ export class FirewallObjectExtensionSolutionStack extends cdk.Stack {
 
   private createOPAClusterByConfig(
     enableOpa: boolean,
-    vpc: ec2.IVpc
+    vpc: IVpc
   ): OpaECSCluster | undefined {
     if (enableOpa) {
       const opaECSCluster = new OpaECSCluster(this, "opa-cluster", {
@@ -338,12 +352,12 @@ export class FirewallObjectExtensionSolutionStack extends cdk.Stack {
   private createCanary(
     restApiId: string,
     removePolicy: RemovalPolicy,
-    vpcConfig?: synthetics.CfnCanary.VPCConfigProperty,
-    canaryRole?: iam.IRole
-  ): AGSSyntheticsCanary {
-    const apiCanary = new AGSSyntheticsCanary(this, "canary", {
+    vpcConfig?: CfnCanary.VPCConfigProperty,
+    canaryRole?: Role
+  ): AWSSyntheticsCanary {
+    const apiCanary = new AWSSyntheticsCanary(this, "canary", {
       canaryName: "ff-canary",
-      runtime: synthetics.Runtime.SYNTHETICS_NODEJS_PUPPETEER_3_0,
+      runtime: synthetics.Runtime.SYNTHETICS_NODEJS_PUPPETEER_3_8,
       schedule: synthetics.Schedule.expression("rate(5 minutes)"),
       test: synthetics.Test.custom({
         code: synthetics.Code.fromInline(

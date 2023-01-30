@@ -13,13 +13,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import * as cloudtrail from "@aws-cdk/aws-cloudtrail";
-import * as ec2 from "@aws-cdk/aws-ec2";
-import { NatProvider, SubnetType } from "@aws-cdk/aws-ec2";
-import * as iam from "@aws-cdk/aws-iam";
-import * as kms from "@aws-cdk/aws-kms";
-import * as logs from "@aws-cdk/aws-logs";
-import { Annotations, Construct, RemovalPolicy, Stack } from "@aws-cdk/core";
+import * as cloudtrail from "aws-cdk-lib/aws-cloudtrail";
+import * as ec2 from "aws-cdk-lib/aws-ec2";
+import { NatProvider, SubnetType } from "aws-cdk-lib/aws-ec2";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as kms from "aws-cdk-lib/aws-kms";
+import * as logs from "aws-cdk-lib/aws-logs";
+import { Annotations, RemovalPolicy, Stack } from "aws-cdk-lib";
+import { Construct } from "constructs";
 import { FirewallConfigSecureBucket } from "./firewall-config-secure-bucket";
 
 export interface AutConfigNetworkConstructProps {
@@ -139,7 +140,7 @@ export class AutConfigNetworkConstruct extends Construct {
       {
         cidrMask: 24,
         name: "PrivateSubnetA",
-        subnetType: SubnetType.PRIVATE,
+        subnetType: SubnetType.PRIVATE_WITH_EGRESS,
       },
       {
         cidrMask: 24,
@@ -182,7 +183,7 @@ export class AutConfigNetworkConstruct extends Construct {
     this.ddbEndpoint = new ec2.GatewayVpcEndpoint(this, `vpcEndpointDynamoDB`, {
       vpc: vpc,
       service: new ec2.GatewayVpcEndpointAwsService("dynamodb"),
-      subnets: [{ subnetType: ec2.SubnetType.PRIVATE_WITH_NAT }],
+      subnets: [{ subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS }],
     });
     if (enableOpa) {
       new ec2.InterfaceVpcEndpoint(this, "vpcEndpointECR", {
@@ -191,7 +192,7 @@ export class AutConfigNetworkConstruct extends Construct {
         lookupSupportedAzs: false,
         open: true,
         privateDnsEnabled: true,
-        subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_NAT },
+        subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
       });
 
       new ec2.InterfaceVpcEndpoint(this, "vpcEndpointEcrDocker", {
@@ -200,7 +201,7 @@ export class AutConfigNetworkConstruct extends Construct {
         lookupSupportedAzs: false,
         open: true,
         privateDnsEnabled: true,
-        subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_NAT },
+        subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
       });
 
       new ec2.InterfaceVpcEndpoint(this, "vpcEndpointELB", {
@@ -209,7 +210,7 @@ export class AutConfigNetworkConstruct extends Construct {
         lookupSupportedAzs: false,
         open: true,
         privateDnsEnabled: true,
-        subnets: { subnetType: ec2.SubnetType.PRIVATE },
+        subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
       });
     }
 
@@ -219,7 +220,7 @@ export class AutConfigNetworkConstruct extends Construct {
       lookupSupportedAzs: false,
       open: true,
       privateDnsEnabled: true,
-      subnets: { subnetType: ec2.SubnetType.PRIVATE },
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
     });
 
     new ec2.InterfaceVpcEndpoint(this, "vpcEndpointEC2MESSAGES", {
@@ -228,7 +229,7 @@ export class AutConfigNetworkConstruct extends Construct {
       lookupSupportedAzs: false,
       open: true,
       privateDnsEnabled: true,
-      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_NAT },
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
     });
 
     new ec2.InterfaceVpcEndpoint(this, "vpcEndpointLambda", {
@@ -237,7 +238,7 @@ export class AutConfigNetworkConstruct extends Construct {
       lookupSupportedAzs: false,
       open: true,
       privateDnsEnabled: true,
-      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_NAT },
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
     });
 
     new ec2.InterfaceVpcEndpoint(this, "vpcEndpointSNS", {
@@ -246,7 +247,7 @@ export class AutConfigNetworkConstruct extends Construct {
       lookupSupportedAzs: false,
       open: true,
       privateDnsEnabled: true,
-      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_NAT },
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
     });
 
     new ec2.InterfaceVpcEndpoint(this, "vpcEndpointKMS", {
@@ -255,7 +256,7 @@ export class AutConfigNetworkConstruct extends Construct {
       lookupSupportedAzs: false,
       open: true,
       privateDnsEnabled: true,
-      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_NAT },
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
     });
     new ec2.InterfaceVpcEndpoint(this, "vpcEndpointCloudWatchLogs", {
       service: ec2.InterfaceVpcEndpointAwsService.CLOUDWATCH_LOGS,
@@ -263,7 +264,7 @@ export class AutConfigNetworkConstruct extends Construct {
       lookupSupportedAzs: false,
       open: true,
       privateDnsEnabled: true,
-      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_NAT },
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
     });
 
     new ec2.InterfaceVpcEndpoint(this, "vpcEndpointCloudWatch", {
@@ -272,7 +273,7 @@ export class AutConfigNetworkConstruct extends Construct {
       lookupSupportedAzs: false,
       open: true,
       privateDnsEnabled: true,
-      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_NAT },
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
     });
 
     new ec2.InterfaceVpcEndpoint(this, "vpcEndpointAWSConfig", {
@@ -281,7 +282,7 @@ export class AutConfigNetworkConstruct extends Construct {
       lookupSupportedAzs: false,
       open: true,
       privateDnsEnabled: true,
-      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_NAT },
+      subnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
     });
     return vpc;
   }

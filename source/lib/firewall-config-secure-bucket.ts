@@ -13,10 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import * as cdk from "@aws-cdk/core";
-import * as s3 from "@aws-cdk/aws-s3";
-import * as kms from "@aws-cdk/aws-kms";
-import * as iam from "@aws-cdk/aws-iam";
+import * as cdk from "aws-cdk-lib";
+import * as s3 from "aws-cdk-lib/aws-s3";
+import * as kms from "aws-cdk-lib/aws-kms";
+import * as iam from "aws-cdk-lib/aws-iam";
+import { Construct } from "constructs";
 
 export type FirewallConfigSecureBucketProps = Omit<
   s3.BucketProps,
@@ -28,12 +29,12 @@ export type FirewallConfigSecureBucketProps = Omit<
   | "serverAccessLogsPrefix"
 > & { encryptionKeyArn?: string };
 
-export class FirewallConfigSecureBucket extends cdk.Construct {
+export class FirewallConfigSecureBucket extends Construct {
   public readonly bucket: s3.Bucket;
   public readonly encryptionKey: kms.IKey;
 
   constructor(
-    scope: cdk.Construct,
+    scope: Construct,
     id: string,
     props: FirewallConfigSecureBucketProps
   ) {

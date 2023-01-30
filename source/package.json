@@ -1,6 +1,6 @@
 {
   "name": "cdk-solution",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "bin": {
     "cdk-solution": "bin/cdk-solution.js"
   },
@@ -18,16 +18,18 @@
     "install:shared-types": "cd lambda/shared-types && npm ci && cd ../..",
     "install:operational-metrics-collector": "cd  lambda/operational-metrics-collector && npm ci && cd ../..",
     "install:canary": "cd lambda/canary && npm ci && cd ../..",
+    "install:apprego-cr": "cd lambda/app-registry-cr && npm ci && cd ../..",
     "build:firewall-config-api": "cd lambda/firewall-config-api && npm run build && npm run test && cd ../..",
     "doc:firewall-config-api": "cd lambda/firewall-config-api && npm run build:doc && cd ../..",
     "build:autoconfig-lambda": "cd lambda/firewall-auto-config && npm run build && npm run test && cd ../..",
     "build:firewall-config-scheduler": "cd lambda/firewall-config-scheduler && npm run test && npm run build && cd ../..",
     "build:shared-types": "cd lambda/shared-types && npm run build && npm run test && cd ../..",
     "build:canary": "cd lambda/canary && npm run build && cd ../..",
+    "build:apprego-cr": "cd lambda/app-registry-cr && npm run build && cd ../..",
     "build:operational-metrics-collector": "cd lambda/operational-metrics-collector && npm run build && cd ../..",
     "build:opa": "cd opa/ && make bundle && cd ../..",
-    "install:all": "npm install && npm run install:autoconfig-lambda && npm run install:firewall-config-api && npm run install:firewall-config-scheduler && npm run install:shared-types && npm run install:canary &&  npm run install:operational-metrics-collector",
-    "all": "npm run build:shared-types && npm run build:canary && npm run build:autoconfig-lambda && npm run build:firewall-config-api && npm run build:firewall-config-scheduler && npm run build:opa &&  npm run build:operational-metrics-collector",
+    "install:all": "npm install && npm run install:autoconfig-lambda && npm run install:firewall-config-api && npm run install:firewall-config-scheduler && npm run install:shared-types && npm run install:canary &&  npm run install:operational-metrics-collector && npm run install:apprego-cr",
+    "all": "npm run build:shared-types && npm run build:canary && npm run build:autoconfig-lambda && npm run build:firewall-config-api && npm run build:firewall-config-scheduler && npm run build:opa &&  npm run build:operational-metrics-collector && npm run build:apprego-cr",
     "release:patch": "standard-version --release-as patch",
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
@@ -35,36 +37,27 @@
     "lint": "eslint --ext .ts . --fix "
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.139.0",
+    "@aws-cdk/assert": "^2.50.0",
     "@types/jest": "^25.2.1",
     "@types/node": "10.17.5",
-    "aws-cdk": "1.139.0",
-    "cdk-assume-role-credential-plugin": "^1.4.0",
-    "jest": "^27.2.5",
-    "ts-jest": "^27.0.0",
-    "ts-node": "^8.1.0",
-    "typescript": "~3.8.0"
-  },
-  "dependencies": {
-    "@aws-cdk/aws-apigateway": "1.139.0",
-    "@aws-cdk/aws-cloudtrail": "^1.139.0",
-    "@aws-cdk/aws-cloudwatch-actions": "^1.139.0",
-    "@aws-cdk/aws-dynamodb": "1.139.0",
-    "@aws-cdk/aws-ecs-patterns": "1.139.0",
-    "@aws-cdk/aws-events-targets": "1.139.0",
-    "@aws-cdk/aws-lambda": "1.139.0",
-    "@aws-cdk/aws-networkfirewall": "1.139.0",
-    "@aws-cdk/aws-s3-deployment": "1.139.0",
-    "@aws-cdk/aws-synthetics": "1.139.0",
-    "@aws-cdk/core": "1.139.0",
-    "source-map-support": "^0.5.16",
-    "uuid": "^8.3.2",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
+    "@typescript-eslint/parser": "^4.33.0",
     "eslint": "^7.17.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-header": "^3.1.0",
     "eslint-plugin-prettier": "^3.3.1",
-    "@typescript-eslint/parser": "^4.13.0",
-    "prettier": "^2.2.1"
+    "jest": "^27.2.5",
+    "prettier": "^2.2.1",
+    "source-map-support": "^0.5.16",
+    "ts-jest": "^27.0.0",
+    "ts-node": "^8.1.0",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-synthetics-alpha": "^2.50.0-alpha.0",
+    "@aws-cdk/aws-servicecatalogappregistry-alpha": "^2.50.0-alpha.0",
+    "aws-cdk-lib": "^2.50.0",
+    "constructs": "10.1.147",
+    "uuid": "^8.3.2"
   }
 }

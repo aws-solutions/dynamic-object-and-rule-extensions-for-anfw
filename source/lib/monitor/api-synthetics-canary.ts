@@ -14,14 +14,21 @@
   limitations under the License.
 */
 
-import { Metric, MetricOptions } from "@aws-cdk/aws-cloudwatch";
-import * as events from "@aws-cdk/aws-events";
-import * as targets from "@aws-cdk/aws-events-targets";
-import * as iam from "@aws-cdk/aws-iam";
-import * as s3 from "@aws-cdk/aws-s3";
-import * as sns from "@aws-cdk/aws-sns";
-import * as synthetics from "@aws-cdk/aws-synthetics";
-import * as cdk from "@aws-cdk/core";
+import {
+  Runtime,
+  RuntimeFamily,
+  Schedule,
+  Test,
+} from "@aws-cdk/aws-synthetics-alpha";
+import { RemovalPolicy, Stack } from "aws-cdk-lib";
+import { Metric, MetricOptions } from "aws-cdk-lib/aws-cloudwatch";
+import { Rule, RuleTargetInput } from "aws-cdk-lib/aws-events";
+import { SnsTopic } from "aws-cdk-lib/aws-events-targets";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as s3 from "aws-cdk-lib/aws-s3";
+import { Topic } from "aws-cdk-lib/aws-sns";
+import * as synthetics from "aws-cdk-lib/aws-synthetics";
+import { Construct } from "constructs";
 import { FirewallConfigSecureBucket } from "../firewall-config-secure-bucket";
 
 export interface APISyntheticsCanaryProps {
@@ -37,7 +44,7 @@ export interface APISyntheticsCanaryProps {
    *
    * @required
    */
-  readonly runtime: synthetics.Runtime;
+  readonly runtime: Runtime;
 
   /**
    * The type of test that you want your canary to run.
@@ -46,7 +53,7 @@ export interface APISyntheticsCanaryProps {
    *
    * @required
    */
-  readonly test: synthetics.Test;
+  readonly test: Test;
 
   /**
    * Specify the schedule for how often the canary runs.
@@ -54,7 +61,7 @@ export interface APISyntheticsCanaryProps {
    * @optional
    * @default Once every 5 minutes (rate(5 minutes))
    */
-  readonly schedule?: synthetics.Schedule;
+  readonly schedule?: Schedule;
 
   /**
    * Whether or not the canary should start after creation.
@@ -79,7 +86,7 @@ export interface APISyntheticsCanaryProps {
    */
   readonly timeoutInSeconds?: number;
 
-  readonly canaryRole?: iam.IRole;
+  readonly canaryRole?: iam.Role;
   /**
    * VPC configuration if canary will run inside the VPC
    *
@@ -114,7 +121,7 @@ export interface APISyntheticsCanaryProps {
    * @optional
    * @default cdk.RemovalPolicy.DESTROY
    */
-  readonly removalPolicy?: cdk.RemovalPolicy;
+  readonly removalPolicy?: RemovalPolicy;
 
   /**
    * The canary's bucket encryption key arn
@@ -127,15 +134,11 @@ export interface APISyntheticsCanaryProps {
 
 const canaryNameReg = /^[0-9a-z_-]+$/;
 
-export class AGSSyntheticsCanary extends cdk.Construct {
-  public readonly canaryRole: iam.IRole;
+export class AWSSyntheticsCanary extends Construct {
+  public readonly canaryRole: iam.Role;
   private readonly canaryName: string;
 
-  constructor(
-    scope: cdk.Construct,
-    id: string,
-    props: APISyntheticsCanaryProps
-  ) {
+  constructor(scope: Construct, id: string, props: APISyntheticsCanaryProps) {
     super(scope, id);
 
     if (props.canaryName.length > 21) {
@@ -147,14 +150,14 @@ export class AGSSyntheticsCanary extends cdk.Construct {
     }
 
     this.canaryName = props.canaryName;
-    const removePolicy = props.removalPolicy ?? cdk.RemovalPolicy.DESTROY;
+    const removePolicy = props.removalPolicy ?? RemovalPolicy.DESTROY;
 
     // create canary artifacts bucket
     const artifactsBucket = new FirewallConfigSecureBucket(
       this,
       "CanaryArtifactBucket",
       {
-        autoDeleteObjects: removePolicy === cdk.RemovalPolicy.DESTROY,
+        autoDeleteObjects: removePolicy === RemovalPolicy.DESTROY,
         removalPolicy: removePolicy,
         encryptionKeyArn: props.s3BucketEncryptionKeyArn,
       }
@@ -230,13 +233,13 @@ export class AGSSyntheticsCanary extends cdk.Construct {
 
     // create cloudwatch event rule to send failed alert to SNS topic
     if (props.alertSNSTopicArn) {
-      const alertTopic = sns.Topic.fromTopicArn(
+      const alertTopic = Topic.fromTopicArn(
         this,
         "CanaryAlertSNSTopic",
         props.alertSNSTopicArn
       );
 
-      new events.Rule(this, "CanaryTestEventRule", {
+      new Rule(this, "CanaryTestEventRule", {
         description: "Event rule for monitoring Canary Test Results",
         eventPattern: {
           source: ["aws.synthetics"],
@@ -247,9 +250,11 @@ export class AGSSyntheticsCanary extends cdk.Construct {
           },
         },
         targets: [
-          new targets.SnsTopic(alertTopic, {
-            message: events.RuleTargetInput.fromText(
-              `Canary test ${props.canaryName} failed on in account ${cdk.Aws.ACCOUNT_ID}`
+          new SnsTopic(alertTopic, {
+            message: RuleTargetInput.fromText(
+              `Canary test ${props.canaryName} failed on in account ${
+                Stack.of(this).account
+              }`
             ),
           }),
         ],
@@ -257,10 +262,10 @@ export class AGSSyntheticsCanary extends cdk.Construct {
     }
   }
 
-  private createCode(test: synthetics.Test): synthetics.CfnCanary.CodeProperty {
+  private createCode(test: Test): synthetics.CfnCanary.CodeProperty {
     const codeConfig = {
       handler: test.handler,
-      ...test.code.bind(this, test.handler, synthetics.RuntimeFamily.NODEJS),
+      ...test.code.bind(this, test.handler, RuntimeFamily.NODEJS),
     };
     return {
       handler: codeConfig.handler,
@@ -275,11 +280,11 @@ export class AGSSyntheticsCanary extends cdk.Construct {
     artifactsBucket: s3.IBucket,
     prefix: string
   ): iam.PolicyDocument {
-    const { partition } = cdk.Stack.of(this);
+    const { partition } = Stack.of(this);
     const policy = new iam.PolicyDocument({
       statements: [
         new iam.PolicyStatement({
-          resources: ["*"],
+          resources: ["arn:aws:s3:::*"],
           actions: ["s3:ListAllMyBuckets"],
         }),
         new iam.PolicyStatement({

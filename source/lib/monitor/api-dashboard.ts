@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import * as cloudwatch from "@aws-cdk/aws-cloudwatch";
-import * as cw_actions from "@aws-cdk/aws-cloudwatch-actions";
-import { IFunction } from "@aws-cdk/aws-lambda";
-import * as sns from "@aws-cdk/aws-sns";
-import * as cdk from "@aws-cdk/core";
-import { Duration, Stack } from "@aws-cdk/core";
+import * as cloudwatch from "aws-cdk-lib/aws-cloudwatch";
+import * as cw_actions from "aws-cdk-lib/aws-cloudwatch-actions";
+import { IFunction } from "aws-cdk-lib/aws-lambda";
+import * as sns from "aws-cdk-lib/aws-sns";
+import { Duration, Stack } from "aws-cdk-lib";
+import { Construct } from "constructs";
 import { ServiceDashboard } from "./service-dashboard";
 
 export interface ApiServiceDashboardProps {
@@ -35,13 +35,9 @@ export interface ApiServiceDashboardProps {
   canaryName?: string;
 }
 
-export class ApiServiceDashboard extends cdk.Construct {
+export class ApiServiceDashboard extends Construct {
   public dashboard: ServiceDashboard;
-  constructor(
-    scope: cdk.Construct,
-    id: string,
-    props: ApiServiceDashboardProps
-  ) {
+  constructor(scope: Construct, id: string, props: ApiServiceDashboardProps) {
     super(scope, id);
 
     const SCHEDULER_FRIENDLY_NAME = "firewall-object-rule-scheduler";

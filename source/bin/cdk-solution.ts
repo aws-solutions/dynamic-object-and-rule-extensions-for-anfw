@@ -14,38 +14,51 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import 'source-map-support/register';
-import * as cdk from '@aws-cdk/core';
-import { FirewallObjectExtensionSolutionStack } from '../lib/cdk-solution-stack';
 
-const app = new cdk.App();
-const SOLUTION_ID = process.env['SOLUTION_ID']
-    ? process.env['SOLUTION_ID']
-    : 'SO0196';
-const VERSION = process.env['VERSION'] ? process.env['VERSION'] : 'v1.1.0';
+import { App, Aspects } from "aws-cdk-lib";
+import { AppRegistry } from "../lib/app-registry-aspect";
+import { FirewallObjectExtensionSolutionStack } from "../lib/cdk-solution-stack";
+
+const app = new App();
+const SOLUTION_ID = process.env["SOLUTION_ID"]
+  ? process.env["SOLUTION_ID"]
+  : "SO0196";
+const VERSION = process.env["VERSION"] ? process.env["VERSION"] : "v1.1.0";
 
 const solutionProperty = {
-    description: `(${SOLUTION_ID}) - The AWS CDK template for deployment of the Dynamic Object and Rule Extensions for AWS Network Firewall solution, version: (Version ${VERSION})`,
-    solutionId: SOLUTION_ID,
-    version: VERSION,
+  description: `(${SOLUTION_ID}) - The AWS CDK template for deployment of the Dynamic Object and Rule Extensions for AWS Network Firewall solution, version: (Version ${VERSION})`,
+  solutionId: SOLUTION_ID,
+  version: VERSION,
 };
 
-if (app.node.tryGetContext('account') && app.node.tryGetContext('region')) {
-    new FirewallObjectExtensionSolutionStack(
-        app,
-        'FirewallObjectExtensionSolutionStack',
-        {
-            ...solutionProperty,
-            env: {
-                account: app.node.tryGetContext('account'),
-                region: app.node.tryGetContext('region'),
-            },
-        }
-    );
+let solutionStack;
+if (app.node.tryGetContext("account") && app.node.tryGetContext("region")) {
+  solutionStack = new FirewallObjectExtensionSolutionStack(
+    app,
+    "FirewallObjectExtensionSolutionStack",
+    {
+      ...solutionProperty,
+      env: {
+        account: app.node.tryGetContext("account"),
+        region: app.node.tryGetContext("region"),
+      },
+    }
+  );
 } else {
-    new FirewallObjectExtensionSolutionStack(
-        app,
-        'FirewallObjectExtensionSolutionStack',
-        { ...solutionProperty }
-    );
+  solutionStack = new FirewallObjectExtensionSolutionStack(
+    app,
+    "FirewallObjectExtensionSolutionStack",
+    { ...solutionProperty }
+  );
 }
+
+Aspects.of(app).add(
+  new AppRegistry(solutionStack, "appregistry-aspect", {
+    solutionId: SOLUTION_ID,
+    solutionVersion: VERSION,
+    solutionName: "Dynamic-Object-and-Rule-Extensions-for-AWS-Network-Firewall",
+    applicationType: "AWS-Solutions",
+    applicationName:
+      "Dynamic-Object-and-Rule-Extensions-for-AWS-Network-Firewall",
+  })
+);

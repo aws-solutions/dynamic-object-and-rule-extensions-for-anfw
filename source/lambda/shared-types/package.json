@@ -1,7 +1,7 @@
 {
   "name": "anfw-object-extensions-config-types",
   "description": "AWS Network Firewall Firefly Extension Config Common types",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "scripts": {
     "build": "tsc",
     "test": "jest --silent --runInBand",
@@ -16,6 +16,7 @@
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^4.13.0",
     "aws-sdk-mock": "^5.4.0",
+    "babel-loader": "^9.1.0",
     "eslint": "^7.17.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-header": "^3.1.0",

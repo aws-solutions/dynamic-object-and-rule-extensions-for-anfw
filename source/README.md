@@ -7,7 +7,7 @@ This folder contains the solution's infrastructure code (CDK stacks and construc
 ## Prerequisite
 * The latest version of the AWS CLI (2.2.37 or newer), installed and configured.
     * https://aws.amazon.com/cli/
-* The latest version of the AWS CDK (1.139.0 or newer).
+* The latest version of the AWS CDK (2.250 or newer).
     * https://docs.aws.amazon.com/cdk/latest/guide/home.html
     * Bootstrap target account https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html
 * Make 3.5.0 +

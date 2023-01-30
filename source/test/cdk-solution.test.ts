@@ -14,39 +14,39 @@
   limitations under the License.
 */
 
-import * as cdk from '@aws-cdk/core';
-import CdkSolution = require('../lib/cdk-solution-stack');
-import { SynthUtils } from '@aws-cdk/assert';
-import '@aws-cdk/assert/jest';
+import CdkSolution = require("../lib/cdk-solution-stack");
+import { SynthUtils } from "@aws-cdk/assert";
+import "@aws-cdk/assert/jest";
+import { App } from "aws-cdk-lib";
 
 /*
  * Sample snapshot test
  */
-test('Sample snapshot test', () => {
-    const app = new cdk.App();
-    // WHEN
-    const stack = new CdkSolution.FirewallObjectExtensionSolutionStack(
-        app,
-        'MyTestStack',
-        { solutionId: 'solution-id', version: '1.1.0' }
-    );
-    // THEN
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
+test("Sample snapshot test", () => {
+  const app = new App();
+  // WHEN
+  const stack = new CdkSolution.FirewallObjectExtensionSolutionStack(
+    app,
+    "MyTestStack",
+    { solutionId: "solution-id", version: "1.1.0" }
+  );
+  // THEN
+  expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });
 
 /*
  * Sample unit test
  */
-test('Test to make sure the Lambda function is there w/ proper runtime', () => {
-    const app = new cdk.App();
-    // WHEN
-    const stack = new CdkSolution.FirewallObjectExtensionSolutionStack(
-        app,
-        'MyTestStack',
-        { solutionId: 'solution-id', version: '1.1.0' }
-    );
-    // THEN
-    expect(stack).toHaveResource('AWS::Lambda::Function', {
-        Runtime: 'nodejs14.x',
-    });
+test("Test to make sure the Lambda function is there w/ proper runtime", () => {
+  const app = new App();
+  // WHEN
+  const stack = new CdkSolution.FirewallObjectExtensionSolutionStack(
+    app,
+    "MyTestStack",
+    { solutionId: "solution-id", version: "1.1.0" }
+  );
+  // THEN
+  expect(stack).toHaveResource("AWS::Lambda::Function", {
+    Runtime: "nodejs14.x",
+  });
 });

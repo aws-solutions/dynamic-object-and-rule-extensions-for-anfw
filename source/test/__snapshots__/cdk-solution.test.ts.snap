@@ -48,80 +48,6 @@ Object {
       },
     },
   },
-  "Parameters": Object {
-    "AssetParameters0ed7fda6a1111da6f4158e27588ddcb6196552fb0e8bfdca9b5d31e73ebf503dArtifactHash64D9734B": Object {
-      "Description": "Artifact hash for asset \\"0ed7fda6a1111da6f4158e27588ddcb6196552fb0e8bfdca9b5d31e73ebf503d\\"",
-      "Type": "String",
-    },
-    "AssetParameters0ed7fda6a1111da6f4158e27588ddcb6196552fb0e8bfdca9b5d31e73ebf503dS3BucketD63966E6": Object {
-      "Description": "S3 bucket for asset \\"0ed7fda6a1111da6f4158e27588ddcb6196552fb0e8bfdca9b5d31e73ebf503d\\"",
-      "Type": "String",
-    },
-    "AssetParameters0ed7fda6a1111da6f4158e27588ddcb6196552fb0e8bfdca9b5d31e73ebf503dS3VersionKey8B409E1F": Object {
-      "Description": "S3 key for asset version \\"0ed7fda6a1111da6f4158e27588ddcb6196552fb0e8bfdca9b5d31e73ebf503d\\"",
-      "Type": "String",
-    },
-    "AssetParameters15684a15d07860e99d2a8079150ad33dd2cb743677fcd7016dd07345e1b69538ArtifactHash154EE95B": Object {
-      "Description": "Artifact hash for asset \\"15684a15d07860e99d2a8079150ad33dd2cb743677fcd7016dd07345e1b69538\\"",
-      "Type": "String",
-    },
-    "AssetParameters15684a15d07860e99d2a8079150ad33dd2cb743677fcd7016dd07345e1b69538S3BucketB021608E": Object {
-      "Description": "S3 bucket for asset \\"15684a15d07860e99d2a8079150ad33dd2cb743677fcd7016dd07345e1b69538\\"",
-      "Type": "String",
-    },
-    "AssetParameters15684a15d07860e99d2a8079150ad33dd2cb743677fcd7016dd07345e1b69538S3VersionKeyC73B105A": Object {
-      "Description": "S3 key for asset version \\"15684a15d07860e99d2a8079150ad33dd2cb743677fcd7016dd07345e1b69538\\"",
-      "Type": "String",
-    },
-    "AssetParameters3ad1b6bde58b1c988f4936ed65c4f0c0f6f22e552e2e48a2c2ce75dd40af9bafArtifactHash4B24B378": Object {
-      "Description": "Artifact hash for asset \\"3ad1b6bde58b1c988f4936ed65c4f0c0f6f22e552e2e48a2c2ce75dd40af9baf\\"",
-      "Type": "String",
-    },
-    "AssetParameters3ad1b6bde58b1c988f4936ed65c4f0c0f6f22e552e2e48a2c2ce75dd40af9bafS3BucketCE59EBC5": Object {
-      "Description": "S3 bucket for asset \\"3ad1b6bde58b1c988f4936ed65c4f0c0f6f22e552e2e48a2c2ce75dd40af9baf\\"",
-      "Type": "String",
-    },
-    "AssetParameters3ad1b6bde58b1c988f4936ed65c4f0c0f6f22e552e2e48a2c2ce75dd40af9bafS3VersionKey9891D888": Object {
-      "Description": "S3 key for asset version \\"3ad1b6bde58b1c988f4936ed65c4f0c0f6f22e552e2e48a2c2ce75dd40af9baf\\"",
-      "Type": "String",
-    },
-    "AssetParameters7ef22dac3421fb2d25175b3386053dbc5bdc110e87cbd58600263bf70a6324cdArtifactHashF658FD15": Object {
-      "Description": "Artifact hash for asset \\"7ef22dac3421fb2d25175b3386053dbc5bdc110e87cbd58600263bf70a6324cd\\"",
-      "Type": "String",
-    },
-    "AssetParameters7ef22dac3421fb2d25175b3386053dbc5bdc110e87cbd58600263bf70a6324cdS3BucketA00C8555": Object {
-      "Description": "S3 bucket for asset \\"7ef22dac3421fb2d25175b3386053dbc5bdc110e87cbd58600263bf70a6324cd\\"",
-      "Type": "String",
-    },
-    "AssetParameters7ef22dac3421fb2d25175b3386053dbc5bdc110e87cbd58600263bf70a6324cdS3VersionKey27C92598": Object {
-      "Description": "S3 key for asset version \\"7ef22dac3421fb2d25175b3386053dbc5bdc110e87cbd58600263bf70a6324cd\\"",
-      "Type": "String",
-    },
-    "AssetParameterse405c5002b2fc1b817f0f27ced563ebd6d414047a0c1bff25891533cecff06e1ArtifactHash3B2BF802": Object {
-      "Description": "Artifact hash for asset \\"e405c5002b2fc1b817f0f27ced563ebd6d414047a0c1bff25891533cecff06e1\\"",
-      "Type": "String",
-    },
-    "AssetParameterse405c5002b2fc1b817f0f27ced563ebd6d414047a0c1bff25891533cecff06e1S3BucketB5603710": Object {
-      "Description": "S3 bucket for asset \\"e405c5002b2fc1b817f0f27ced563ebd6d414047a0c1bff25891533cecff06e1\\"",
-      "Type": "String",
-    },
-    "AssetParameterse405c5002b2fc1b817f0f27ced563ebd6d414047a0c1bff25891533cecff06e1S3VersionKeyC658C3C7": Object {
-      "Description": "S3 key for asset version \\"e405c5002b2fc1b817f0f27ced563ebd6d414047a0c1bff25891533cecff06e1\\"",
-      "Type": "String",
-    },
-    "AssetParametersf27d02e79a6c99275925e9cd91d145cb524f6aa5384277228885b80fb52def2eArtifactHashD8D4A9B3": Object {
-      "Description": "Artifact hash for asset \\"f27d02e79a6c99275925e9cd91d145cb524f6aa5384277228885b80fb52def2e\\"",
-      "Type": "String",
-    },
-    "AssetParametersf27d02e79a6c99275925e9cd91d145cb524f6aa5384277228885b80fb52def2eS3Bucket5EBA1041": Object {
-      "Description": "S3 bucket for asset \\"f27d02e79a6c99275925e9cd91d145cb524f6aa5384277228885b80fb52def2e\\"",
-      "Type": "String",
-    },
-    "AssetParametersf27d02e79a6c99275925e9cd91d145cb524f6aa5384277228885b80fb52def2eS3VersionKey6E68C5D0": Object {
-      "Description": "S3 key for asset version \\"f27d02e79a6c99275925e9cd91d145cb524f6aa5384277228885b80fb52def2e\\"",
-      "Type": "String",
-    },
-  },
   "Resources": Object {
     "CanaryExecutionRole07ED3987": Object {
       "Properties": Object {
@@ -223,41 +149,9 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters15684a15d07860e99d2a8079150ad33dd2cb743677fcd7016dd07345e1b69538S3BucketB021608E",
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters15684a15d07860e99d2a8079150ad33dd2cb743677fcd7016dd07345e1b69538S3VersionKeyC73B105A",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters15684a15d07860e99d2a8079150ad33dd2cb743677fcd7016dd07345e1b69538S3VersionKeyC73B105A",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
+          "S3Key": "3f51abb709b8e65167a45aeed02bab11540603d909005d7148230ba5ce6c74d7.zip",
         },
         "Description": Object {
           "Fn::Join": Array [
@@ -279,7 +173,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -540,23 +434,7 @@ Object {
         "KeyPolicy": Object {
           "Statement": Array [
             Object {
-              "Action": Array [
-                "kms:Create*",
-                "kms:Describe*",
-                "kms:Enable*",
-                "kms:List*",
-                "kms:Put*",
-                "kms:Update*",
-                "kms:Revoke*",
-                "kms:Disable*",
-                "kms:Get*",
-                "kms:Delete*",
-                "kms:ScheduleKeyDeletion",
-                "kms:CancelKeyDeletion",
-                "kms:GenerateDataKey",
-                "kms:TagResource",
-                "kms:UntagResource",
-              ],
+              "Action": "kms:*",
               "Effect": "Allow",
               "Principal": Object {
                 "AWS": Object {
@@ -573,25 +451,6 @@ Object {
                       },
                       ":root",
                     ],
-                  ],
-                },
-              },
-              "Resource": "*",
-            },
-            Object {
-              "Action": Array [
-                "kms:Decrypt",
-                "kms:DescribeKey",
-                "kms:Encrypt",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*",
-              ],
-              "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::GetAtt": Array [
-                    "autoconfigapiExecutionRole3A140D76",
-                    "Arn",
                   ],
                 },
               },
@@ -633,23 +492,7 @@ Object {
         "KeyPolicy": Object {
           "Statement": Array [
             Object {
-              "Action": Array [
-                "kms:Create*",
-                "kms:Describe*",
-                "kms:Enable*",
-                "kms:List*",
-                "kms:Put*",
-                "kms:Update*",
-                "kms:Revoke*",
-                "kms:Disable*",
-                "kms:Get*",
-                "kms:Delete*",
-                "kms:ScheduleKeyDeletion",
-                "kms:CancelKeyDeletion",
-                "kms:GenerateDataKey",
-                "kms:TagResource",
-                "kms:UntagResource",
-              ],
+              "Action": "kms:*",
               "Effect": "Allow",
               "Principal": Object {
                 "AWS": Object {
@@ -666,63 +509,6 @@ Object {
                       },
                       ":root",
                     ],
-                  ],
-                },
-              },
-              "Resource": "*",
-            },
-            Object {
-              "Action": Array [
-                "kms:Decrypt",
-                "kms:DescribeKey",
-                "kms:Encrypt",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*",
-              ],
-              "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::GetAtt": Array [
-                    "autoconfigExecutionRoleFB25D9EC",
-                    "Arn",
-                  ],
-                },
-              },
-              "Resource": "*",
-            },
-            Object {
-              "Action": Array [
-                "kms:Decrypt",
-                "kms:DescribeKey",
-                "kms:Encrypt",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*",
-              ],
-              "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::GetAtt": Array [
-                    "autoconfigscheduleFunctionExecutionRole88B49F22",
-                    "Arn",
-                  ],
-                },
-              },
-              "Resource": "*",
-            },
-            Object {
-              "Action": Array [
-                "kms:Decrypt",
-                "kms:DescribeKey",
-                "kms:Encrypt",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*",
-              ],
-              "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::GetAtt": Array [
-                    "autoconfigapiExecutionRole3A140D76",
-                    "Arn",
                   ],
                 },
               },
@@ -764,23 +550,7 @@ Object {
         "KeyPolicy": Object {
           "Statement": Array [
             Object {
-              "Action": Array [
-                "kms:Create*",
-                "kms:Describe*",
-                "kms:Enable*",
-                "kms:List*",
-                "kms:Put*",
-                "kms:Update*",
-                "kms:Revoke*",
-                "kms:Disable*",
-                "kms:Get*",
-                "kms:Delete*",
-                "kms:ScheduleKeyDeletion",
-                "kms:CancelKeyDeletion",
-                "kms:GenerateDataKey",
-                "kms:TagResource",
-                "kms:UntagResource",
-              ],
+              "Action": "kms:*",
               "Effect": "Allow",
               "Principal": Object {
                 "AWS": Object {
@@ -797,24 +567,6 @@ Object {
                       },
                       ":root",
                     ],
-                  ],
-                },
-              },
-              "Resource": "*",
-            },
-            Object {
-              "Action": Array [
-                "kms:Decrypt",
-                "kms:Encrypt",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*",
-              ],
-              "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::GetAtt": Array [
-                    "autoconfigExecutionRoleFB25D9EC",
-                    "Arn",
                   ],
                 },
               },
@@ -946,6 +698,7 @@ Object {
                 "dynamodb:PutItem",
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
               "Resource": Array [
@@ -1000,6 +753,7 @@ Object {
                 "dynamodb:PutItem",
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
               "Resource": Array [
@@ -1027,6 +781,7 @@ Object {
                 "dynamodb:PutItem",
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
               "Resource": Array [
@@ -1331,6 +1086,7 @@ Object {
       "Type": "AWS::ApiGateway::UsagePlan",
     },
     "autoconfigapiAPIAccount4D624B77": Object {
+      "DeletionPolicy": "Retain",
       "DependsOn": Array [
         "autoconfigapiAPI373CEEE7",
       ],
@@ -1343,8 +1099,10 @@ Object {
         },
       },
       "Type": "AWS::ApiGateway::Account",
+      "UpdateReplacePolicy": "Retain",
     },
     "autoconfigapiAPICloudWatchRoleEA4D305D": Object {
+      "DeletionPolicy": "Retain",
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -1384,8 +1142,9 @@ Object {
         ],
       },
       "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Retain",
     },
-    "autoconfigapiAPIDeployment11680BD96c0e63420a5a6419d602165e0d945e35": Object {
+    "autoconfigapiAPIDeployment11680BD92e87096866d699999ec03e4abf7f7a35": Object {
       "DependsOn": Array [
         "autoconfigapiAPIauditsGETD57B8DA6",
         "autoconfigapiAPIauditsOPTIONSE2CB20D4",
@@ -1420,7 +1179,7 @@ Object {
         "autoconfigapiAPIrulebundles4FAA7FE8",
       ],
       "Properties": Object {
-        "Description": "Automatically created by the RestApi construct",
+        "Description": "Rest Api for Firewall config",
         "RestApiId": Object {
           "Ref": "autoconfigapiAPI373CEEE7",
         },
@@ -1442,7 +1201,7 @@ Object {
           "Format": "{\\"requestId\\":\\"$context.requestId\\",\\"ip\\":\\"$context.identity.sourceIp\\",\\"user\\":\\"$context.identity.user\\",\\"caller\\":\\"$context.identity.caller\\",\\"requestTime\\":\\"$context.requestTime\\",\\"httpMethod\\":\\"$context.httpMethod\\",\\"resourcePath\\":\\"$context.resourcePath\\",\\"status\\":\\"$context.status\\",\\"protocol\\":\\"$context.protocol\\",\\"responseLength\\":\\"$context.responseLength\\"}",
         },
         "DeploymentId": Object {
-          "Ref": "autoconfigapiAPIDeployment11680BD96c0e63420a5a6419d602165e0d945e35",
+          "Ref": "autoconfigapiAPIDeployment11680BD92e87096866d699999ec03e4abf7f7a35",
         },
         "MethodSettings": Array [
           Object {
@@ -1472,7 +1231,7 @@ Object {
     },
     "autoconfigapiAPIOPTIONS9D403FA4": Object {
       "Properties": Object {
-        "AuthorizationType": "AWS_IAM",
+        "AuthorizationType": "NONE",
         "HttpMethod": "OPTIONS",
         "Integration": Object {
           "IntegrationResponses": Array [
@@ -1610,7 +1369,7 @@ Object {
     },
     "autoconfigapiAPIauditsOPTIONSE2CB20D4": Object {
       "Properties": Object {
-        "AuthorizationType": "AWS_IAM",
+        "AuthorizationType": "NONE",
         "HttpMethod": "OPTIONS",
         "Integration": Object {
           "IntegrationResponses": Array [
@@ -1745,7 +1504,7 @@ Object {
     },
     "autoconfigapiAPIobjectsOPTIONSE5BF1847": Object {
       "Properties": Object {
-        "AuthorizationType": "AWS_IAM",
+        "AuthorizationType": "NONE",
         "HttpMethod": "OPTIONS",
         "Integration": Object {
           "IntegrationResponses": Array [
@@ -2039,7 +1798,7 @@ Object {
     },
     "autoconfigapiAPIobjectsidOPTIONS95DFC6AF": Object {
       "Properties": Object {
-        "AuthorizationType": "AWS_IAM",
+        "AuthorizationType": "NONE",
         "HttpMethod": "OPTIONS",
         "Integration": Object {
           "IntegrationResponses": Array [
@@ -2255,7 +2014,7 @@ Object {
     },
     "autoconfigapiAPIrulebundlesOPTIONS25BF9971": Object {
       "Properties": Object {
-        "AuthorizationType": "AWS_IAM",
+        "AuthorizationType": "NONE",
         "HttpMethod": "OPTIONS",
         "Integration": Object {
           "IntegrationResponses": Array [
@@ -2549,7 +2308,7 @@ Object {
     },
     "autoconfigapiAPIrulebundlesidOPTIONS6324A884": Object {
       "Properties": Object {
-        "AuthorizationType": "AWS_IAM",
+        "AuthorizationType": "NONE",
         "HttpMethod": "OPTIONS",
         "Integration": Object {
           "IntegrationResponses": Array [
@@ -2762,7 +2521,7 @@ Object {
     },
     "autoconfigapiAPIrulebundlesidrulesOPTIONSECCBF5EE": Object {
       "Properties": Object {
-        "AuthorizationType": "AWS_IAM",
+        "AuthorizationType": "NONE",
         "HttpMethod": "OPTIONS",
         "Integration": Object {
           "IntegrationResponses": Array [
@@ -3056,7 +2815,7 @@ Object {
     },
     "autoconfigapiAPIrulebundlesidrulesruleIdOPTIONSEC62CF6B": Object {
       "Properties": Object {
-        "AuthorizationType": "AWS_IAM",
+        "AuthorizationType": "NONE",
         "HttpMethod": "OPTIONS",
         "Integration": Object {
           "IntegrationResponses": Array [
@@ -3319,6 +3078,7 @@ Object {
                 "dynamodb:PutItem",
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
               "Resource": Array [
@@ -3362,6 +3122,7 @@ Object {
                 "dynamodb:PutItem",
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
               "Resource": Array [
@@ -3389,6 +3150,7 @@ Object {
                 "dynamodb:PutItem",
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
               "Resource": Array [
@@ -3427,6 +3189,7 @@ Object {
                 "dynamodb:PutItem",
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
               "Resource": Array [
@@ -3502,23 +3265,7 @@ Object {
         "KeyPolicy": Object {
           "Statement": Array [
             Object {
-              "Action": Array [
-                "kms:Create*",
-                "kms:Describe*",
-                "kms:Enable*",
-                "kms:List*",
-                "kms:Put*",
-                "kms:Update*",
-                "kms:Revoke*",
-                "kms:Disable*",
-                "kms:Get*",
-                "kms:Delete*",
-                "kms:ScheduleKeyDeletion",
-                "kms:CancelKeyDeletion",
-                "kms:GenerateDataKey",
-                "kms:TagResource",
-                "kms:UntagResource",
-              ],
+              "Action": "kms:*",
               "Effect": "Allow",
               "Principal": Object {
                 "AWS": Object {
@@ -3853,45 +3600,17 @@ Object {
       "DependsOn": Array [
         "autoconfigapiExecutionRoleDefaultPolicyAC210897",
         "autoconfigapiExecutionRole3A140D76",
+        "networkobjectextensionVpcPrivateSubnetASubnet1DefaultRouteD53AF693",
+        "networkobjectextensionVpcPrivateSubnetASubnet1RouteTableAssociation4919BA17",
+        "networkobjectextensionVpcPrivateSubnetASubnet2DefaultRoute68DC2904",
+        "networkobjectextensionVpcPrivateSubnetASubnet2RouteTableAssociationDC02E6FE",
       ],
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameterse405c5002b2fc1b817f0f27ced563ebd6d414047a0c1bff25891533cecff06e1S3BucketB5603710",
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameterse405c5002b2fc1b817f0f27ced563ebd6d414047a0c1bff25891533cecff06e1S3VersionKeyC658C3C7",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameterse405c5002b2fc1b817f0f27ced563ebd6d414047a0c1bff25891533cecff06e1S3VersionKeyC658C3C7",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
+          "S3Key": "af223bdc06c97c0f8091c7c42a8a8e861abce419c0270df7ffc7853fd45990bd.zip",
         },
         "DeadLetterConfig": Object {
           "TargetArn": Object {
@@ -4463,45 +4182,17 @@ Object {
       "DependsOn": Array [
         "autoconfigExecutionRoleDefaultPolicyF81E1CAB",
         "autoconfigExecutionRoleFB25D9EC",
+        "networkobjectextensionVpcPrivateSubnetASubnet1DefaultRouteD53AF693",
+        "networkobjectextensionVpcPrivateSubnetASubnet1RouteTableAssociation4919BA17",
+        "networkobjectextensionVpcPrivateSubnetASubnet2DefaultRoute68DC2904",
+        "networkobjectextensionVpcPrivateSubnetASubnet2RouteTableAssociationDC02E6FE",
       ],
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters0ed7fda6a1111da6f4158e27588ddcb6196552fb0e8bfdca9b5d31e73ebf503dS3BucketD63966E6",
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters0ed7fda6a1111da6f4158e27588ddcb6196552fb0e8bfdca9b5d31e73ebf503dS3VersionKey8B409E1F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters0ed7fda6a1111da6f4158e27588ddcb6196552fb0e8bfdca9b5d31e73ebf503dS3VersionKey8B409E1F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
+          "S3Key": "427904831d66a4de08fd23f34e1615b74d411142fdfbd4de1677fadd6e781df6.zip",
         },
         "DeadLetterConfig": Object {
           "TargetArn": Object {
@@ -4600,45 +4291,17 @@ Object {
       "DependsOn": Array [
         "autoconfigscheduleFunctionExecutionRoleDefaultPolicy1D57AE03",
         "autoconfigscheduleFunctionExecutionRole88B49F22",
+        "networkobjectextensionVpcPrivateSubnetASubnet1DefaultRouteD53AF693",
+        "networkobjectextensionVpcPrivateSubnetASubnet1RouteTableAssociation4919BA17",
+        "networkobjectextensionVpcPrivateSubnetASubnet2DefaultRoute68DC2904",
+        "networkobjectextensionVpcPrivateSubnetASubnet2RouteTableAssociationDC02E6FE",
       ],
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersf27d02e79a6c99275925e9cd91d145cb524f6aa5384277228885b80fb52def2eS3Bucket5EBA1041",
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersf27d02e79a6c99275925e9cd91d145cb524f6aa5384277228885b80fb52def2eS3VersionKey6E68C5D0",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersf27d02e79a6c99275925e9cd91d145cb524f6aa5384277228885b80fb52def2eS3VersionKey6E68C5D0",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
+          "S3Key": "4aa9b82a83000beb9c3c3255b208d980b223b0c5c04579341f10771dae6a465d.zip",
         },
         "DeadLetterConfig": Object {
           "TargetArn": Object {
@@ -4707,6 +4370,12 @@ Object {
       "Type": "AWS::Lambda::Function",
     },
     "autoconfigautoConfigSchedulerSecurityGroupB91B99C2": Object {
+      "DependsOn": Array [
+        "networkobjectextensionVpcPrivateSubnetASubnet1DefaultRouteD53AF693",
+        "networkobjectextensionVpcPrivateSubnetASubnet1RouteTableAssociation4919BA17",
+        "networkobjectextensionVpcPrivateSubnetASubnet2DefaultRoute68DC2904",
+        "networkobjectextensionVpcPrivateSubnetASubnet2RouteTableAssociationDC02E6FE",
+      ],
       "Properties": Object {
         "GroupDescription": "Automatic security group for Lambda Function MyTestStackautoconfigautoConfigScheduler449A52B4",
         "SecurityGroupEgress": Array [
@@ -4733,6 +4402,12 @@ Object {
       "Type": "AWS::EC2::SecurityGroup",
     },
     "autoconfigautoConfigSecurityGroupAF540975": Object {
+      "DependsOn": Array [
+        "networkobjectextensionVpcPrivateSubnetASubnet1DefaultRouteD53AF693",
+        "networkobjectextensionVpcPrivateSubnetASubnet1RouteTableAssociation4919BA17",
+        "networkobjectextensionVpcPrivateSubnetASubnet2DefaultRoute68DC2904",
+        "networkobjectextensionVpcPrivateSubnetASubnet2RouteTableAssociationDC02E6FE",
+      ],
       "Properties": Object {
         "GroupDescription": "Automatic security group for Lambda Function MyTestStackautoconfigautoConfig11768BC5",
         "SecurityGroupEgress": Array [
@@ -4837,12 +4512,28 @@ Object {
             Object {
               "Action": "lambda:InvokeFunction",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "autoconfigautoConfig3D9E0388",
-                  "Arn",
-                ],
-              },
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "autoconfigautoConfig3D9E0388",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "autoconfigautoConfig3D9E0388",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
             },
             Object {
               "Action": Array [
@@ -4857,6 +4548,7 @@ Object {
                 "dynamodb:PutItem",
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
               ],
               "Effect": "Allow",
               "Resource": Array [
@@ -4966,7 +4658,7 @@ Object {
           },
           "TimeoutInSeconds": 15,
         },
-        "RuntimeVersion": "syn-nodejs-puppeteer-3.0",
+        "RuntimeVersion": "syn-nodejs-puppeteer-3.8",
         "Schedule": Object {
           "Expression": "rate(5 minutes)",
         },
@@ -5137,23 +4829,7 @@ Object {
         "KeyPolicy": Object {
           "Statement": Array [
             Object {
-              "Action": Array [
-                "kms:Create*",
-                "kms:Describe*",
-                "kms:Enable*",
-                "kms:List*",
-                "kms:Put*",
-                "kms:Update*",
-                "kms:Revoke*",
-                "kms:Disable*",
-                "kms:Get*",
-                "kms:Delete*",
-                "kms:ScheduleKeyDeletion",
-                "kms:CancelKeyDeletion",
-                "kms:GenerateDataKey",
-                "kms:TagResource",
-                "kms:UntagResource",
-              ],
+              "Action": "kms:*",
               "Effect": "Allow",
               "Principal": Object {
                 "AWS": Object {
@@ -5199,7 +4875,7 @@ Object {
             Object {
               "Action": "s3:ListAllMyBuckets",
               "Effect": "Allow",
-              "Resource": "*",
+              "Resource": "arn:aws:s3:::*",
             },
             Object {
               "Action": Array [
@@ -5303,41 +4979,9 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters3ad1b6bde58b1c988f4936ed65c4f0c0f6f22e552e2e48a2c2ce75dd40af9bafS3BucketCE59EBC5",
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters3ad1b6bde58b1c988f4936ed65c4f0c0f6f22e552e2e48a2c2ce75dd40af9bafS3VersionKey9891D888",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters3ad1b6bde58b1c988f4936ed65c4f0c0f6f22e552e2e48a2c2ce75dd40af9bafS3VersionKey9891D888",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
+          "S3Key": "801fba9bf7268cd867723c884cc4345bd625c5a83c2f68e27ab404003cfbddff.zip",
         },
         "Description": "Dynamic Object and Rule Extensions for AWS Network Firewall (1.1.0): Custom resource",
         "Environment": Object {
@@ -5418,41 +5062,9 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters7ef22dac3421fb2d25175b3386053dbc5bdc110e87cbd58600263bf70a6324cdS3BucketA00C8555",
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters7ef22dac3421fb2d25175b3386053dbc5bdc110e87cbd58600263bf70a6324cdS3VersionKey27C92598",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters7ef22dac3421fb2d25175b3386053dbc5bdc110e87cbd58600263bf70a6324cdS3VersionKey27C92598",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
+          "S3Key": "6ff23d2800aac27308e31c227529dc13854507c3b2598d2433fcf82604fa054d.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (MyTestStack/metrics-collector-construct/metricsCollectorCrProvider)",
         "Environment": Object {
@@ -5472,7 +5084,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "Tags": Array [
           Object {
             "Key": "SOLUTION-ID",
@@ -5535,12 +5147,28 @@ Object {
             Object {
               "Action": "lambda:InvokeFunction",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "metricscollectorconstructCustomResourceFunction93E34BD8",
-                  "Arn",
-                ],
-              },
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "metricscollectorconstructCustomResourceFunction93E34BD8",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "metricscollectorconstructCustomResourceFunction93E34BD8",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
             },
           ],
           "Version": "2012-10-17",
@@ -5585,23 +5213,7 @@ Object {
         "KeyPolicy": Object {
           "Statement": Array [
             Object {
-              "Action": Array [
-                "kms:Create*",
-                "kms:Describe*",
-                "kms:Enable*",
-                "kms:List*",
-                "kms:Put*",
-                "kms:Update*",
-                "kms:Revoke*",
-                "kms:Disable*",
-                "kms:Get*",
-                "kms:Delete*",
-                "kms:ScheduleKeyDeletion",
-                "kms:CancelKeyDeletion",
-                "kms:GenerateDataKey",
-                "kms:TagResource",
-                "kms:UntagResource",
-              ],
+              "Action": "kms:*",
               "Effect": "Allow",
               "Principal": Object {
                 "AWS": Object {
@@ -6063,6 +5675,10 @@ Object {
       "Type": "AWS::EC2::EIP",
     },
     "networkobjectextensionVpcPublicSubnetASubnet1NATGateway80602F56": Object {
+      "DependsOn": Array [
+        "networkobjectextensionVpcPublicSubnetASubnet1DefaultRoute0EF8E9D7",
+        "networkobjectextensionVpcPublicSubnetASubnet1RouteTableAssociationDF1EC0D0",
+      ],
       "Properties": Object {
         "AllocationId": Object {
           "Fn::GetAtt": Array [
@@ -6199,6 +5815,10 @@ Object {
       "Type": "AWS::EC2::EIP",
     },
     "networkobjectextensionVpcPublicSubnetASubnet2NATGatewayA0650273": Object {
+      "DependsOn": Array [
+        "networkobjectextensionVpcPublicSubnetASubnet2DefaultRouteE422D12B",
+        "networkobjectextensionVpcPublicSubnetASubnet2RouteTableAssociationFECD1C7A",
+      ],
       "Properties": Object {
         "AllocationId": Object {
           "Fn::GetAtt": Array [
@@ -6421,23 +6041,7 @@ Object {
         "KeyPolicy": Object {
           "Statement": Array [
             Object {
-              "Action": Array [
-                "kms:Create*",
-                "kms:Describe*",
-                "kms:Enable*",
-                "kms:List*",
-                "kms:Put*",
-                "kms:Update*",
-                "kms:Revoke*",
-                "kms:Disable*",
-                "kms:Get*",
-                "kms:Delete*",
-                "kms:ScheduleKeyDeletion",
-                "kms:CancelKeyDeletion",
-                "kms:GenerateDataKey",
-                "kms:TagResource",
-                "kms:UntagResource",
-              ],
+              "Action": "kms:*",
               "Effect": "Allow",
               "Principal": Object {
                 "AWS": Object {
@@ -6699,23 +6303,7 @@ Object {
         "KeyPolicy": Object {
           "Statement": Array [
             Object {
-              "Action": Array [
-                "kms:Create*",
-                "kms:Describe*",
-                "kms:Enable*",
-                "kms:List*",
-                "kms:Put*",
-                "kms:Update*",
-                "kms:Revoke*",
-                "kms:Disable*",
-                "kms:Get*",
-                "kms:Delete*",
-                "kms:ScheduleKeyDeletion",
-                "kms:CancelKeyDeletion",
-                "kms:GenerateDataKey",
-                "kms:TagResource",
-                "kms:UntagResource",
-              ],
+              "Action": "kms:*",
               "Effect": "Allow",
               "Principal": Object {
                 "AWS": Object {

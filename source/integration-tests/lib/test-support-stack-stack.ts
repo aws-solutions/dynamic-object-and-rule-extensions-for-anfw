@@ -13,12 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import * as autoscaling from "@aws-cdk/aws-autoscaling";
-import * as ec2 from "@aws-cdk/aws-ec2";
-import * as lambda from "@aws-cdk/aws-lambda";
-import * as cdk from "@aws-cdk/core";
-import { CfnOutput, Tags } from "@aws-cdk/core";
+import * as autoscaling from "aws-cdk-lib/aws-autoscaling";
+import * as ec2 from "aws-cdk-lib/aws-ec2";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+
+import { Arn, CfnOutput, Stack, StackProps, Tags } from "aws-cdk-lib";
 import * as path from "path";
+import { Construct } from "constructs";
 export const TAG_KEY = "FF_TEST";
 
 export const TAG_VALUE = "true";
@@ -37,13 +38,13 @@ export const ASG_OUTPUT_KEY = "TestASG";
 
 export const LAMBDA_TAG_KEY = "OPEN_ENI_LAMBDA";
 
-export class TestSupportStackStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+export class TestSupportStackStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
     //vpc?
     const vpc = ec2.Vpc.fromLookup(this, "VPC", { isDefault: true });
     // only on 2.5.0 https://github.com/aws/aws-cdk/commit/7b31376e6349440f7b215d6e11c3dd900d50df34
-    const vpcArn = cdk.Arn.format(
+    const vpcArn = Arn.format(
       {
         account: this.account,
         partition: this.partition,
@@ -65,7 +66,7 @@ export class TestSupportStackStack extends cdk.Stack {
       allowAllOutbound: true,
     });
 
-    const sgArn = cdk.Arn.format(
+    const sgArn = Arn.format(
       {
         account: this.account,
         partition: this.partition,
@@ -115,7 +116,7 @@ export class TestSupportStackStack extends cdk.Stack {
     );
     Tags.of(lambdaInVPC).add(LAMBDA_TAG_KEY, TAG_VALUE);
 
-    const ec2Arn = cdk.Arn.format(
+    const ec2Arn = Arn.format(
       {
         account: this.account,
         partition: this.partition,
@@ -155,7 +156,7 @@ export class TestSupportStackStack extends cdk.Stack {
     if (subnetIds.length === 0) {
       fail("No default subnet abort tests");
     }
-    const subnetArn = cdk.Arn.format(
+    const subnetArn = Arn.format(
       {
         account: this.account,
         partition: this.partition,

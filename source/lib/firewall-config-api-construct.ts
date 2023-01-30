@@ -13,20 +13,21 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import * as apigateway from "@aws-cdk/aws-apigateway";
-import { LambdaIntegration } from "@aws-cdk/aws-apigateway";
-import * as dynamodb from "@aws-cdk/aws-dynamodb";
-import * as iam from "@aws-cdk/aws-iam";
-import * as lambda from "@aws-cdk/aws-lambda";
-import { Tracing } from "@aws-cdk/aws-lambda";
-import { CfnOutput, Construct, Duration, Names, Stack } from "@aws-cdk/core";
-import * as ec2 from "@aws-cdk/aws-ec2";
+import * as apigateway from "aws-cdk-lib/aws-apigateway";
+import { LambdaIntegration } from "aws-cdk-lib/aws-apigateway";
+import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import { Tracing } from "aws-cdk-lib/aws-lambda";
+import { CfnOutput, Duration, Names, Stack } from "aws-cdk-lib";
+import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as path from "path";
-import * as logs from "@aws-cdk/aws-logs";
-import * as kms from "@aws-cdk/aws-kms";
-import * as cdk from "@aws-cdk/core";
-import * as sqs from "@aws-cdk/aws-sqs";
-import * as cloudtrail from "@aws-cdk/aws-cloudtrail";
+import * as logs from "aws-cdk-lib/aws-logs";
+import * as kms from "aws-cdk-lib/aws-kms";
+import * as cdk from "aws-cdk-lib";
+import * as sqs from "aws-cdk-lib/aws-sqs";
+import * as cloudtrail from "aws-cdk-lib/aws-cloudtrail";
+import { Construct } from "constructs";
 
 export interface AutConfigAPIConstructProps {
   ruleBundlesTable: dynamodb.Table;
@@ -46,7 +47,7 @@ export interface AutConfigAPIConstructProps {
   crossAccountConfigReadOnlyRole?: string;
   crossAccountNetworkFirewallReadWriteRole?: string;
   apiGatewayType?: string;
-  canaryRole?: iam.IRole;
+  canaryRole?: iam.Role;
   secOpsAdminRole?: iam.IRole;
 }
 
@@ -279,7 +280,7 @@ export class AutConfigAPIConstructConstruct extends Construct {
       stage: this.api.deploymentStage,
     });
 
-    adminUserRole.addToPolicy(
+    adminUserRole.addToPrincipalPolicy(
       new iam.PolicyStatement({
         effect: iam.Effect.ALLOW,
         actions: ["execute-api:Invoke"],
@@ -506,7 +507,7 @@ export class AutConfigAPIConstructConstruct extends Construct {
           privateDnsEnabled: true,
           securityGroups: [vpcEndpointSecurityGroup],
           subnets: {
-            subnetType: ec2.SubnetType.PRIVATE,
+            subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
           },
         }
       );

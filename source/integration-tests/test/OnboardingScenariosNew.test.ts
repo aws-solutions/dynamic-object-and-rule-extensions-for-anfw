@@ -104,9 +104,8 @@ describe("use case 1, onboarding rule bundles", () => {
     console.log("value", value?.OutputValue);
     return value?.OutputValue;
   }
-
+  jest.setTimeout(120000);
   beforeAll(async () => {
-    jest.setTimeout(120000);
     if (requireCleanState) {
       await clearData(ffObjectTableName, dynamoDBClient);
       await clearData(ffRuleTableName, dynamoDBClient);
@@ -596,7 +595,7 @@ async function createNetworkFirewallRuleGroup(
     }
   } catch (e) {
     console.log("errr", e);
-    if (e.name === "ResourceNotFoundException") {
+    if ((e as any).name === "ResourceNotFoundException") {
       console.log(`no rule group ${testRuleGroupName} found, creating one`);
       const createRuleGroupCmd = new CreateRuleGroupCommand({
         RuleGroupName: testRuleGroupName,

@@ -13,22 +13,18 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import * as dynamodb from "@aws-cdk/aws-dynamodb";
+import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import {
   AttributeType,
   BillingMode,
   StreamViewType,
   TableEncryption,
-} from "@aws-cdk/aws-dynamodb";
-import * as kms from "@aws-cdk/aws-kms";
-import * as sns from "@aws-cdk/aws-sns";
-import {
-  Annotations,
-  CfnOutput,
-  Construct,
-  RemovalPolicy,
-} from "@aws-cdk/core";
-import * as subscriptions from "@aws-cdk/aws-sns-subscriptions";
+} from "aws-cdk-lib/aws-dynamodb";
+import * as kms from "aws-cdk-lib/aws-kms";
+import * as sns from "aws-cdk-lib/aws-sns";
+import { Annotations, CfnOutput, RemovalPolicy } from "aws-cdk-lib";
+import * as subscriptions from "aws-cdk-lib/aws-sns-subscriptions";
+import { Construct } from "constructs";
 
 export interface AutConfigConstructProps {
   pointInTimeRecovery: boolean;

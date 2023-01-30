@@ -14,13 +14,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import * as cdk from "@aws-cdk/core";
+import { App } from "aws-cdk-lib";
 import { TestSupportStackStack } from "../lib/test-support-stack-stack";
 
-const app = new cdk.App();
+const app = new App();
 new TestSupportStackStack(app, "TestSupportStackStack", {
   env: {
-    account: app.node.tryGetContext("account"),
-    region: app.node.tryGetContext("region"),
+    account: process.env.CDK_DEPLOY_ACCOUNT || process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEPLOY_REGION || process.env.CDK_DEFAULT_REGION,
   },
 });
