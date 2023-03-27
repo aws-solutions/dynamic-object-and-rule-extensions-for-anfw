@@ -105,11 +105,15 @@ export abstract class CloudResourceObjectResolver implements ObjectResolver {
       return this.parseResult(logger, data, ruleObject);
     } catch (e) {
       logger.error("Encounter error while query for object", ruleObject, e);
+      let errorMessage = "";
+      if (e instanceof Error) {
+        errorMessage = e.message;
+      }
       return {
         ...ruleObject,
         addresses: [],
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        failureReasons: ["AwsConfigClient failed " + e.message],
+        failureReasons: ["AwsConfigClient failed " + errorMessage],
       };
     }
   }
