@@ -139,7 +139,7 @@ export class RuleUpdater {
         await Promise.all(failedRules.map((fr) => this.ruleStatusNotifier.notify(fr)));
     }
 
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
     handleUndeterminedError(e: any, rules: FlowRule[]): void {
         // this is to handle the cases where no specific info was given, where no specific rules can be treated as failure
         rules.forEach((r) => {

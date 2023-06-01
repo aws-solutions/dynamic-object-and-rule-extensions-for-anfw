@@ -1,4 +1,4 @@
-FROM openpolicyagent/opa
+FROM public.ecr.aws/q0y2g4u1/openpolicyagent/opa:0.39.0-rootless
 
 COPY config.yaml .
 

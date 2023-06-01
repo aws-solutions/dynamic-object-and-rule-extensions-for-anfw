@@ -1,6 +1,6 @@
 {
   "app": "npx ts-node bin/cdk-solution.ts",
   "context": {
-    "apiGatewayType": "private"
+    "@aws-cdk/aws-s3:serverAccessLogsUseBucketPolicy": true
   }
 }

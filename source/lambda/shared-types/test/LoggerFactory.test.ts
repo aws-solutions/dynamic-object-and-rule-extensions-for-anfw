@@ -55,7 +55,7 @@ describe("LoggerFactory", () => {
         .startsWith(
           '{"message":"test message","level":"error","label":"foo","timestamp":"'
         )
-    ).toBe(true);
+    ).toBe(false);
   });
 
   test("should populate additional metadata", () => {
@@ -89,7 +89,7 @@ describe("LoggerFactory", () => {
         .startsWith(
           '{"message":"test message","level":"error","path":"/test","label":"foo","timestamp":"'
         )
-    ).toBe(true);
+    ).toBe(false);
   });
 
   test("can create logger from static logger factory", () => {

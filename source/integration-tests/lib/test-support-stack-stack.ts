@@ -17,7 +17,7 @@ import * as autoscaling from "aws-cdk-lib/aws-autoscaling";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 
-import { Arn, CfnOutput, Stack, StackProps, Tags } from "aws-cdk-lib";
+import { Arn, Aspects, CfnOutput, Stack, StackProps, Tags } from "aws-cdk-lib";
 import * as path from "path";
 import { Construct } from "constructs";
 export const TAG_KEY = "FF_TEST";
@@ -92,6 +92,7 @@ export class TestSupportStackStack extends Stack {
         ec2.InstanceClass.T2,
         ec2.InstanceSize.MICRO
       ),
+      requireImdsv2: true,
       machineImage: new ec2.AmazonLinuxImage({
         generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
       }),
@@ -139,6 +140,7 @@ export class TestSupportStackStack extends Stack {
           subnetType: ec2.SubnetType.PUBLIC,
         },
         securityGroup: securityGroup,
+        requireImdsv2: true,
         instanceType: ec2.InstanceType.of(
           ec2.InstanceClass.T2,
           ec2.InstanceSize.MICRO
@@ -184,6 +186,11 @@ export class TestSupportStackStack extends Stack {
       securityGroup: mySecurityGroup,
       desiredCapacity: 1,
     });
+
+    const aspect = new autoscaling.AutoScalingGroupRequireImdsv2Aspect();
+
+    Aspects.of(this).add(aspect);
+
     new CfnOutput(this, ASG_OUTPUT_KEY, {
       value: asg.autoScalingGroupName,
     });
