@@ -5,9 +5,9 @@
     "author": "Amazon Web Services",
     "license": "Apache-2.0",
     "dependencies": {
-        "@aws-sdk/client-config-service": "^3.20.0",
-        "@aws-sdk/client-dynamodb": "^3.20.0",
-        "@aws-sdk/client-network-firewall": "^3.20.0",
+        "@aws-sdk/client-config-service": "^3.350.0",
+        "@aws-sdk/client-dynamodb": "^3.351.0",
+        "@aws-sdk/client-network-firewall": "^3.350.0",
         "@aws-sdk/middleware-retry": "^3.20.0",
         "@aws-sdk/smithy-client": "3.20.0",
         "@aws-sdk/types": "^3.6.1",
