@@ -56,7 +56,7 @@
   "dependencies": {
     "@aws-cdk/aws-synthetics-alpha": "^2.50.0-alpha.0",
     "@aws-cdk/aws-servicecatalogappregistry-alpha": "^2.50.0-alpha.0",
-    "aws-cdk-lib": "^2.50.0",
+    "aws-cdk-lib": "^2.80.0",
     "constructs": "10.2.32",
     "uuid": "^8.3.2"
   }
