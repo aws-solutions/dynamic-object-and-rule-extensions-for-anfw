@@ -1,4 +1,8 @@
-# dynamic-object-and-rule-extensions-for-anfw
+## Important: This AWS Solution is no longer available.
+
+**You can find other AWS Solutions in the [AWS Solutions Library](https://aws.amazon.com/solutions/).**
+
+## dynamic-object-and-rule-extensions-for-anfw
 
 [![Node.js CI](https://github.com/aws-solutions/dynamic-object-and-rule-extensions-for-anfw/actions/workflows/node.js.yml/badge.svg)](https://github.com/aws-solutions/dynamic-object-and-rule-extensions-for-anfw/actions/workflows/node.js.yml)
 [![GitHub issues](https://img.shields.io/github/issues/aws-solutions/dynamic-object-and-rule-extensions-for-anfw)](https://github.com/aws-solutions/dynamic-object-and-rule-extensions-for-anfw/issues)
